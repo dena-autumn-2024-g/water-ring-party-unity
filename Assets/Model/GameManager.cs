@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private Score score;
     public GameObject ringPrefab;
     public GameObject[] poleObjects;
+    public FluidSimulation fluidSimulation;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        // StartCoroutine(SpawnRingsCoroutine());
+        StartCoroutine(SpawnRingsCoroutine());
     }
 
     // Update is called once per frame
@@ -51,9 +52,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SpawnRingsCoroutine()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 20; i++)
         {
-            Instantiate(ringPrefab);
+            var prefab = Instantiate(ringPrefab);
+            prefab.GetComponent<ringController>().fluidSimulation = fluidSimulation;
             yield return new WaitForSeconds(1f);
         }
     }
