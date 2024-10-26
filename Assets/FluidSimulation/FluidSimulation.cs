@@ -24,12 +24,10 @@ public class FluidSimulation : MonoBehaviour {
     [SerializeField] private float min_size = 0.1f;
     /// <summary>最大倍率</summary>
     [SerializeField] private float size_mul = 0.1f;
-    /// <summary>外力X</summary>
-    [SerializeField] private int setx = 6;
-    /// <summary>外力Y</summary>
-    [SerializeField] private int sety = 6;
-    /// <summary>外力Y</summary>
-    [SerializeField] private int setz = 6;
+    /// <summary>倍率</summary>
+    [SerializeField] private Vector3 scale = Vector3.one;
+    /// <summary>オフセットX</summary>
+    [SerializeField] private Vector3 offset = Vector3.zero;
     /// <summary>外力ベクトル</summary>
     [SerializeField] private Vector3 power = new Vector3(0.99f, 0f, 0f);
 
@@ -78,10 +76,6 @@ public class FluidSimulation : MonoBehaviour {
             nsobject[i] = Instantiate(nsobjectOriginal);
             nsobject[i].transform.position = rys[i];
         }
-        setx = setx % (WX - 1);
-        sety = sety % (WY - 1);
-        setz = setz % (WZ - 1);
-
     }
 
     private void Update() {
@@ -467,9 +461,9 @@ public class FluidSimulation : MonoBehaviour {
     public Vector3 TransformPositionToCalculationVector3(Vector3 transformPosition)
     {
         return new Vector3(
-            transformPosition.x + (WX * 0.5f),
-            transformPosition.y + (WY * 0.5f),
-            transformPosition.z + (WZ * 0.5f)
+            (transformPosition.x / scale.x) + (WX * 0.5f) - offset.x,
+            (transformPosition.y / scale.y) + (WY * 0.5f) - offset.y,
+            (transformPosition.z / scale.z) + (WZ * 0.5f) - offset.z
         );
     }
 
@@ -479,9 +473,10 @@ public class FluidSimulation : MonoBehaviour {
     public Vector3 CalculationVector3ToTransformPosition(Vector3 calculationVector3)
     {
         return new Vector3(
-            calculationVector3.x - (WX * 0.5f),
-            calculationVector3.y - (WY * 0.5f),
-            calculationVector3.z - (WZ * 0.5f)
+            (calculationVector3.x - (WX * 0.5f) + offset.x) * scale.x,
+            (calculationVector3.y - (WY * 0.5f) + offset.y) * scale.y,
+            (calculationVector3.z - (WZ * 0.5f) + offset.z) * scale.z
+
         );
     }
 
