@@ -29,7 +29,9 @@ public class FluidSimulation : MonoBehaviour {
     /// <summary>オフセットX</summary>
     [SerializeField] private Vector3 offset = Vector3.zero;
     /// <summary>外力ベクトル</summary>
-    [SerializeField] private Vector3 power = new Vector3(0.99f, 0f, 0f);
+    [SerializeField] private Vector3 power = new Vector3(0f, 1f, 0f);
+
+    public Vector3Int[] block_positions;
 
     /// <summary>X速度</summary>
     private double[,,] vx;
@@ -84,13 +86,19 @@ public class FluidSimulation : MonoBehaviour {
 
         // 別の力をスペースキーで制御
         if (Input.GetKey(KeyCode.Alpha1)) {
-            ApplyForce(new Vector3(WX*1/4, 2, WZ/2), power);
+            ApplyForce(new Vector3(3, 3, WZ/2), power);
         }
         if (Input.GetKey(KeyCode.Alpha2)) {
-            ApplyForce(new Vector3(WX*2/4, 2, WZ/2), power);
+            ApplyForce(new Vector3(9, 3, WZ/2), power);
         }
         if (Input.GetKey(KeyCode.Alpha3)) {
-            ApplyForce(new Vector3(WX*3/4, 2, WZ/2), power);
+            ApplyForce(new Vector3(14, 3, WZ/2), power);
+        }
+        if (Input.GetKey(KeyCode.Alpha4)) {
+            ApplyForce(new Vector3(19, 3, WZ/2), power);
+        }
+        if (Input.GetKey(KeyCode.Alpha5)) {
+            ApplyForce(new Vector3(25, 3, WZ/2), power);
         }
 
         set(); // 壁速度0に固定
@@ -307,6 +315,17 @@ public class FluidSimulation : MonoBehaviour {
                     }
                 }
             }
+        }
+        for (var i = 0; i < block_positions.Length; i++) {
+            var x = block_positions[i].x;
+            var y = block_positions[i].y;
+            var z = block_positions[i].z;
+            vx[x, y, z] = 0.0;
+            vx[x + 1, y, z] = 0.0;
+            vy[x, y, z] = 0.0;
+            vy[x, y + 1, z] = 0.0;
+            vz[x, y, z] = 0.0;
+            vz[x, y, z + 1] = 0.0;
         }
     }
 
