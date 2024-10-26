@@ -108,7 +108,6 @@ public class FluidSimulation : MonoBehaviour {
     }
 
     private void ApplyForce(Vector3 position, Vector3 force) {
-        Debug.Log(position + " " + force);
         int x = Mathf.Clamp(Mathf.RoundToInt(position.x), 1, WX-2);
         int y = Mathf.Clamp(Mathf.RoundToInt(position.y), 1, WY-2);
         int z = Mathf.Clamp(Mathf.RoundToInt(position.z), 1, WZ-2);
@@ -462,9 +461,38 @@ public class FluidSimulation : MonoBehaviour {
     /// <summary>
     /// 粒子の視覚的な更新
     /// </summary>
+    /// <summary>
+    /// Transform.positionから計算用Vector3に変換する
+    /// </summary>
+    public Vector3 TransformPositionToCalculationVector3(Vector3 transformPosition)
+    {
+        return new Vector3(
+            transformPosition.x + (WX * 0.5f),
+            transformPosition.y + (WY * 0.5f),
+            transformPosition.z + (WZ * 0.5f)
+        );
+    }
+
+    /// <summary>
+    /// 計算用Vector3からTransform.positionに変換する
+    /// </summary>
+    public Vector3 CalculationVector3ToTransformPosition(Vector3 calculationVector3)
+    {
+        return new Vector3(
+            calculationVector3.x - (WX * 0.5f),
+            calculationVector3.y - (WY * 0.5f),
+            calculationVector3.z - (WZ * 0.5f)
+        );
+    }
+
+    /// <summary>
+    /// 粒子の視覚的な更新
+    /// </summary>
     private void UpdateParticleVisual(int index, Vector3 velocity) {
         var speed = velocity.magnitude;
-        nsobject[index].transform.position = new Vector3(rys[index].x - (WX * 0.5f), rys[index].y - (WY * 0.5f), rys[index].z - (WZ * 0.5f));
+        nsobject[index].transform.position = CalculationVector3ToTransformPosition(rys[index]);
         nsobject[index].transform.localScale = Vector3.one * (min_size + speed * size_mul);
     }
+    
+
 }
