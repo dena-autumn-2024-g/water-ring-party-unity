@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package water_ring;
+
+// 部屋の作成リクエストとレスポンス
+message CreateRoomRequest {}
+
+message CreateRoomResponse {
+  string room_url = 1; // 入室用のURL
+  string room_id = 2;  // (UUID)
+}
+
+// 部屋を閉じるリクエスト
+message CloseRoomRequest {
+  string room_id = 1; // ルームID
+}
+
+// 部屋にユーザーが参加するのを待つリクエスト
+message WaitForUserJoinRequest {
+  string room_id = 1; // ルームID
+}
+
+// 部屋にユーザーが参加した通知メッセージ
+message WaitForUserJoinResponse {
+  int32 user_id = 1; // 参加したユーザーID
+}
+
+message JoinRoomRequest {
+  string room_id = 1; // ルームID
+}
+
+message JoinRoomResponse {
+  string user_id = 1; // ユーザーID
+}
+
+message CloseRoomResponse {};
+
+// サービス定義
+service RoomService {
+  // 部屋を作成
+  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse);
+
+  // 部屋にユーザーが参加するのを待つ
+  rpc WaitForUserJoin(WaitForUserJoinRequest)
+      returns (stream WaitForUserJoinResponse);
+
+  rpc JoinRoom(JoinRoomRequest) returns (JoinRoomResponse);
+
+  // 部屋を閉じる
+  rpc CloseRoom(CloseRoomRequest) returns (CloseRoomResponse);
+}

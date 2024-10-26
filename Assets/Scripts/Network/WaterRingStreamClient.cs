@@ -14,8 +14,8 @@ public class WaterRingStreamClient
 {
     static readonly string Address = "https://localhost:8080";
 
-    public delegate void UserJoinedHandler(UserJoinedNotification notification);
-    public delegate void GameEventHandler(GameEventNotification notification);
+    public delegate void UserJoinedHandler(WaitForUserJoinResponse notification);
+    public delegate void GameEventHandler(StartGameStreamResponse notification);
     public event UserJoinedHandler OnUserJoined;
     public event GameEventHandler OnGameEvent;
     public event Action<Exception> OnError;
@@ -72,7 +72,7 @@ public class WaterRingStreamClient
             var gRPCClient = new RoomService.RoomServiceClient(channel);
 
             var waitForUserJoinRequest = new WaitForUserJoinRequest { RoomId = roomId };
-            AsyncServerStreamingCall<UserJoinedNotification> request = gRPCClient.WaitForUserJoin(waitForUserJoinRequest);
+            AsyncServerStreamingCall<WaitForUserJoinResponse> request = gRPCClient.WaitForUserJoin(waitForUserJoinRequest);
 
             while (await request.ResponseStream.MoveNext(cancellationToken))
             {
@@ -116,10 +116,10 @@ public class WaterRingStreamClient
             using var httpHandler = new YetAnotherHttpHandler() { SkipCertificateVerification = true };
             using var httpClient = new HttpClient(httpHandler);
             using GrpcChannel channel = GrpcChannel.ForAddress(Address, new GrpcChannelOptions() { HttpHandler = httpHandler });
-            var gRPCClient = new RoomService.RoomServiceClient(channel);
+            var gRPCClient = new GameService.GameServiceClient(channel);
 
-            var startGameRequest = new StartGameRequest { RoomId = roomId };
-            AsyncServerStreamingCall<GameEventNotification> request = gRPCClient.StartGame(startGameRequest);
+            var startGameRequest = new StartGameStreamRequest { RoomId = roomId };
+            AsyncServerStreamingCall<StartGameStreamResponse> request = gRPCClient.StartGameStream(startGameRequest);
 
             while (await request.ResponseStream.MoveNext(cancellationToken))
             {
@@ -141,6 +141,34 @@ public class WaterRingStreamClient
         {
             _cancellationTokenSource.Dispose();
             _cancellationTokenSource = null;
+        }
+    }
+
+    // 部屋を閉じる
+    public async Task<CloseRoomResponse> CloseRoomAsync(string roomId)
+    {
+        try
+        {
+            using var httpHandler = new YetAnotherHttpHandler() { SkipCertificateVerification = true };
+            using var httpClient = new HttpClient(httpHandler);
+            using GrpcChannel channel = GrpcChannel.ForAddress(Address, new GrpcChannelOptions() { HttpHandler = httpHandler });
+            var gRPCClient = new RoomService.RoomServiceClient(channel);
+
+            var closeRoomRequest = new CloseRoomRequest { RoomId = roomId };
+            CloseRoomResponse response = await gRPCClient.CloseRoomAsync(closeRoomRequest);
+            return response;
+        }
+        catch (RpcException rpcEx)
+        {
+            Debug.LogError($"gRPC error: {rpcEx.Status.Detail}");
+            OnError?.Invoke(rpcEx);
+            return null;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Close room error: {ex.Message}");
+            OnError?.Invoke(ex);
+            return null;
         }
     }
 
