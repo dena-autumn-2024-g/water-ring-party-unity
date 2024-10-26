@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        StartCoroutine(SpawnRingsCoroutine());
+        // StartCoroutine(SpawnRingsCoroutine());
     }
 
     // Update is called once per frame
