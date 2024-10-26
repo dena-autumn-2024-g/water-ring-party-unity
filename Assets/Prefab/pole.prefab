@@ -129,7 +129,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 1067276654715585858}
   - component: {fileID: 6920164888182473868}
   - component: {fileID: 7516597487323234314}
+  - component: {fileID: 3217989465852470016}
   m_Layer: 0
   m_Name: stick
   m_TagString: Untagged
@@ -301,3 +302,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3217989465852470016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8090696514129614435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dfad91d458c5394c9fd6f270e93d0e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
