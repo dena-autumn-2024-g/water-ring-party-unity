@@ -45,15 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nsobjectOriginal: {fileID: 1873813588423928, guid: 7426a8f1823baaa4faaccf19ee30cdd3, type: 3}
-  WX: 15
-  WY: 10
+  WX: 32
+  WY: 18
   WZ: 3
-  delta_t: 0.2
-  Re: 1000000
+  delta_t: 1
+  Re: 10000000
   omega: 1.8
   rys_num: 1024
   min_size: 0.2
   size_mul: 0.3
-  scale: {x: 3, y: 3, z: 1}
-  offset: {x: 0, y: 1, z: 0}
-  power: {x: 0, y: 1, z: 0}
+  scale: {x: 1.5, y: 1.5, z: 1}
+  offset: {x: 0, y: 1.3, z: 0}
+  power: {x: 0, y: 1.5, z: 0}

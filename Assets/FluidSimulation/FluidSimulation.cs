@@ -84,13 +84,13 @@ public class FluidSimulation : MonoBehaviour {
 
         // 別の力をスペースキーで制御
         if (Input.GetKey(KeyCode.Alpha1)) {
-            ApplyForce(new Vector3(WX*1/4, WY/4, WZ/2), power);
+            ApplyForce(new Vector3(WX*1/4, 2, WZ/2), power);
         }
         if (Input.GetKey(KeyCode.Alpha2)) {
-            ApplyForce(new Vector3(WX*2/4, WY/4, WZ/2), power);
+            ApplyForce(new Vector3(WX*2/4, 2, WZ/2), power);
         }
         if (Input.GetKey(KeyCode.Alpha3)) {
-            ApplyForce(new Vector3(WX*3/4, WY/4, WZ/2), power);
+            ApplyForce(new Vector3(WX*3/4, 2, WZ/2), power);
         }
 
         set(); // 壁速度0に固定

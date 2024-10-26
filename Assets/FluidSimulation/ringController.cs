@@ -8,13 +8,11 @@ public class ringController : MonoBehaviour
     [SerializeField] private float forceMultiplier = 100000f; // 力の倍率を調整するパラメータ
     private Rigidbody rb;
 
-    private GameObject child1;
-    private GameObject child2;
+    public GameObject child1;
+    public GameObject child2;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        child1 = transform.GetChild(0).gameObject;
-        child2 = transform.GetChild(1).gameObject;
     }
     
     void FixedUpdate()
