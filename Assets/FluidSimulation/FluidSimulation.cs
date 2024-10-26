@@ -374,7 +374,7 @@ public class FluidSimulation : MonoBehaviour {
     /// 可視化
     /// </summary>
     void view() {
-
+        // 新しい粒子の生成
         for (var i = 0; i < 1; i++) {
             rys[counter] = new Vector3(
                 UnityEngine.Random.value * (1.0f * (float)(WX - 2)) + 1.0f,
@@ -384,61 +384,87 @@ public class FluidSimulation : MonoBehaviour {
             counter = (counter + 1) % rys_num;
         }
         
-        for (var i=0; i<rys_num; i++) {
-            var xx = (double)Mathf.Clamp(rys[i].x, 0.0f, 1.0f * WX - 1.1f);
-            var yy = (double)Mathf.Clamp(rys[i].y, 0.0f, 1.0f * WY - 1.1f);
-            var zz = (double)Mathf.Clamp(rys[i].z, 0.0f, 1.0f * WZ - 1.1f);
-            var ixx = (int)xx;
-            var iyy = (int)yy;
-            var izz = (int)zz;
-            var sxx = xx - ixx;
-            var syy = yy - iyy;
-            var szz = zz - izz;
-            var im1 = (ixx + 1) % WX;
-            var jm1 = (iyy + 1) % WY;
-            var km1 = (izz + 1) % WZ;
-            //  速度情報の線形補完。自分のいる座標での正確な速度を計算
-            var xsp = (
-                (((vx[ixx, iyy, izz] * (1.0 - sxx)) + (vx[im1, iyy, izz] * sxx)) * (1.0 - syy) + ((vx[ixx, jm1, izz] * (1.0 - sxx)) + (vx[im1, jm1, izz] * sxx)) * syy) * (1.0 - szz) +
-                (((vx[ixx, iyy, km1] * (1.0 - sxx)) + (vx[im1, iyy, km1] * sxx)) * (1.0 - syy) + ((vx[ixx, jm1, km1] * (1.0 - sxx)) + (vx[im1, jm1, km1] * sxx)) * syy) * szz
-            ) * delta_t;
+        // 粒子の更新
+        for (var i = 0; i < rys_num; i++) {
+            Vector3 velocity = CalculateVelocity(rys[i]);
+            
+            rys[i] += velocity;
 
-            var ysp = (
-                (((vy[ixx, iyy, izz] * (1.0 - sxx)) + (vy[im1, iyy, izz] * sxx)) * (1.0 - syy) + ((vy[ixx, jm1, izz] * (1.0 - sxx)) + (vy[im1, jm1, izz] * sxx)) * syy) * (1.0 - szz) +
-                (((vy[ixx, iyy, km1] * (1.0 - sxx)) + (vy[im1, iyy, km1] * sxx)) * (1.0 - syy) + ((vy[ixx, jm1, km1] * (1.0 - sxx)) + (vy[im1, jm1, km1] * sxx)) * syy) * szz
-            ) * delta_t;
-
-            var zsp = (
-                (((vz[ixx, iyy, izz] * (1.0 - sxx)) + (vz[im1, iyy, izz] * sxx)) * (1.0 - syy) + ((vz[ixx, jm1, izz] * (1.0 - sxx)) + (vz[im1, jm1, izz] * sxx)) * syy) * (1.0 - szz) +
-                (((vz[ixx, iyy, km1] * (1.0 - sxx)) + (vz[im1, iyy, km1] * sxx)) * (1.0 - syy) + ((vz[ixx, jm1, km1] * (1.0 - sxx)) + (vz[im1, jm1, km1] * sxx)) * syy) * szz
-            ) * delta_t;
-
-            xx += xsp;
-            yy += ysp;
-            zz += zsp;
-
-            if (
-                (xx >= (1.0 * WX - 1.1)) ||
-                (yy >= (1.0 * WY - 1.1)) ||
-                (zz >= (1.0 * WZ - 1.1)) ||
-                (xx < 1.1) ||
-                (yy < 1.1) ||
-                (zz < 1.1)
-                ) {
-                rys[i] = new Vector3(
-                    Random.value * (1.0f * (float)(WX - 2)) + 1.0f,
-                    Random.value * (1.0f * (float)(WY - 2)) + 1.0f,
-                    Random.value * (1.0f * (float)(WZ - 2)) + 1.0f
-                );
-            } else {
-                rys[i].x = (float)xx;
-                rys[i].y = (float)yy;
-                rys[i].z = (float)zz;
+            if (IsOutOfBounds(rys[i])) {
+                rys[i] = GenerateNewParticle();
             }
-            var speed = new Vector3((float)xsp, (float)ysp, (float)zsp).magnitude;
-            nsobject[i].transform.position = new Vector3(rys[i].x - (WX * 0.5f), rys[i].y - (WY * 0.5f), rys[i].z - (WZ * 0.5f));
-            nsobject[i].transform.localScale = Vector3.one * (min_size + speed * size_mul);
-        }
 
+            UpdateParticleVisual(i, velocity);
+        }
+    }
+
+    /// <summary>
+    /// 指定された位置での速度を計算する
+    /// </summary>
+    /// <param name="position">計算する位置</param>
+    /// <returns>計算された速度ベクトル</returns>
+    public Vector3 CalculateVelocity(Vector3 position) {
+        var xx = (double)Mathf.Clamp(position.x, 0.0f, 1.0f * WX - 1.1f);
+        var yy = (double)Mathf.Clamp(position.y, 0.0f, 1.0f * WY - 1.1f);
+        var zz = (double)Mathf.Clamp(position.z, 0.0f, 1.0f * WZ - 1.1f);
+        var ixx = (int)xx;
+        var iyy = (int)yy;
+        var izz = (int)zz;
+        var sxx = xx - ixx;
+        var syy = yy - iyy;
+        var szz = zz - izz;
+        var im1 = (ixx + 1) % WX;
+        var jm1 = (iyy + 1) % WY;
+        var km1 = (izz + 1) % WZ;
+
+        // 速度情報の線形補完。自分のいる座標での正確な速度を計算
+        var xsp = (
+            (((vx[ixx, iyy, izz] * (1.0 - sxx)) + (vx[im1, iyy, izz] * sxx)) * (1.0 - syy) + ((vx[ixx, jm1, izz] * (1.0 - sxx)) + (vx[im1, jm1, izz] * sxx)) * syy) * (1.0 - szz) +
+            (((vx[ixx, iyy, km1] * (1.0 - sxx)) + (vx[im1, iyy, km1] * sxx)) * (1.0 - syy) + ((vx[ixx, jm1, km1] * (1.0 - sxx)) + (vx[im1, jm1, km1] * sxx)) * syy) * szz
+        ) * delta_t;
+
+        var ysp = (
+            (((vy[ixx, iyy, izz] * (1.0 - sxx)) + (vy[im1, iyy, izz] * sxx)) * (1.0 - syy) + ((vy[ixx, jm1, izz] * (1.0 - sxx)) + (vy[im1, jm1, izz] * sxx)) * syy) * (1.0 - szz) +
+            (((vy[ixx, iyy, km1] * (1.0 - sxx)) + (vy[im1, iyy, km1] * sxx)) * (1.0 - syy) + ((vy[ixx, jm1, km1] * (1.0 - sxx)) + (vy[im1, jm1, km1] * sxx)) * syy) * szz
+        ) * delta_t;
+
+        var zsp = (
+            (((vz[ixx, iyy, izz] * (1.0 - sxx)) + (vz[im1, iyy, izz] * sxx)) * (1.0 - syy) + ((vz[ixx, jm1, izz] * (1.0 - sxx)) + (vz[im1, jm1, izz] * sxx)) * syy) * (1.0 - szz) +
+            (((vz[ixx, iyy, km1] * (1.0 - sxx)) + (vz[im1, iyy, km1] * sxx)) * (1.0 - syy) + ((vz[ixx, jm1, km1] * (1.0 - sxx)) + (vz[im1, jm1, km1] * sxx)) * syy) * szz
+        ) * delta_t;
+
+        return new Vector3((float)xsp, (float)ysp, (float)zsp);
+    }
+
+    /// <summary>
+    /// 粒子が境界外にあるかどうかをチェック
+    /// </summary>
+    private bool IsOutOfBounds(Vector3 position) {
+        return (position.x >= (1.0 * WX - 1.1)) ||
+               (position.y >= (1.0 * WY - 1.1)) ||
+               (position.z >= (1.0 * WZ - 1.1)) ||
+               (position.x < 1.1) ||
+               (position.y < 1.1) ||
+               (position.z < 1.1);
+    }
+
+    /// <summary>
+    /// 新しい粒子の位置を生成
+    /// </summary>
+    private Vector3 GenerateNewParticle() {
+        return new Vector3(
+            Random.value * (1.0f * (float)(WX - 2)) + 1.0f,
+            Random.value * (1.0f * (float)(WY - 2)) + 1.0f,
+            Random.value * (1.0f * (float)(WZ - 2)) + 1.0f
+        );
+    }
+
+    /// <summary>
+    /// 粒子の視覚的な更新
+    /// </summary>
+    private void UpdateParticleVisual(int index, Vector3 velocity) {
+        var speed = velocity.magnitude;
+        nsobject[index].transform.position = new Vector3(rys[index].x - (WX * 0.5f), rys[index].y - (WY * 0.5f), rys[index].z - (WZ * 0.5f));
+        nsobject[index].transform.localScale = Vector3.one * (min_size + speed * size_mul);
     }
 }
