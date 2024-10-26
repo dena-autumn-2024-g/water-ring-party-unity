@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ringController : MonoBehaviour
 {
-    [SerializeField] private FluidSimulation fluidSimulation;
+    public FluidSimulation fluidSimulation;
     [SerializeField] private float forceMultiplier = 100000f; // 力の倍率を調整するパラメータ
     private Rigidbody rb;
 
