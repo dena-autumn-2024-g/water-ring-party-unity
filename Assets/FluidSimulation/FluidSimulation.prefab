@@ -44,16 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1c4a3af58016d442bd91cd349cd897a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nsobjectOriginal: {fileID: 1873813588423928, guid: 7426a8f1823baaa4faaccf19ee30cdd3, type: 3}
-  WX: 32
-  WY: 18
+  nsobjectOriginal: {fileID: 2868850467514427883, guid: 8fea731450878f74caf628a7911bf4f2, type: 3}
+  WX: 28
+  WY: 15
   WZ: 3
   delta_t: 1
   Re: 10000000
   omega: 1.8
-  rys_num: 1024
-  min_size: 0.2
-  size_mul: 0.3
-  scale: {x: 1.5, y: 1.5, z: 1}
+  rys_num: 256
+  min_size: 0
+  size_mul: 1.5
+  scale: {x: 2, y: 2, z: 1}
   offset: {x: 0, y: 1.3, z: 0}
-  power: {x: 0, y: 1.5, z: 0}
+  power: {x: 0, y: 1, z: 0}
+  block_positions: []
