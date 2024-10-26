@@ -6,22 +6,34 @@ public class GameManager : MonoBehaviour
 {
     public Timer timer;
     public Score score;
+    public GameObject ringPrefab;
+    public GameObject[] poleObjects;
     // Start is called before the first frame update
     void Start()
     {
-        timer = new Timer();
-        timer.StartTimer();
-        score = new Score();
-        Debug.Log(score.ToString());
-        score.AddPoints(10);
-        Debug.Log(score.ToString());
-        score.ResetScore();
-        Debug.Log(score.ToString());
+        Instantiate(ringPrefab);
+        foreach (var pole in poleObjects)
+        {
+            var stick = pole.transform.Find("stick");
+            if (stick != null)
+            {
+                var triggerObserver = stick.GetComponent<TriggerObserver>();
+                if (triggerObserver != null)
+                {
+                    triggerObserver.OnTriggerStateChanged += OnTriggerStateChanged;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         // Debug.Log(timer.GetCurrentTime());
+    }
+
+    void OnTriggerStateChanged(bool isEnter)
+    {
+        Debug.Log("物体が入りました: " + isEnter);
     }
 }
