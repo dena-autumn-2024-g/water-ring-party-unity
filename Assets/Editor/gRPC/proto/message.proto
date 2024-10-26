@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package water_ring;
+
+// 部屋の作成リクエストとレスポンス
+message CreateRoomRequest {
+}
+
+message CreateRoomResponse {
+  string room_url = 1; // 入室用のURL
+  string room_id = 2; // (UUID)
+}
+
+// ゲーム開始ボタンを押したリクエスト
+message StartGameRequest {
+  string room_id = 1; // ルームID
+}
+
+// 部屋を閉じるリクエスト
+message CloseRoomRequest {
+  string room_id = 1; // ルームID
+}
+
+// 部屋にユーザーが参加するのを待つリクエスト
+message WaitForUserJoinRequest {
+  string room_id = 1; // ルームID
+}
+
+// 移動方向の列挙型
+enum Direction {
+  LEFT = 0;
+  RIGHT = 1;
+}
+
+// 部屋にユーザーが参加した通知メッセージ
+message UserJoinedNotification {
+  int32 user_id = 1; // 参加したユーザーID
+}
+
+// ボタン押下に関する通知メッセージ (押した)
+message PushButtonPressedNotification {
+  int32 user_id = 1; // ボタンを押したユーザーID
+}
+
+// ボタン押下に関する通知メッセージ (離した)
+message PushButtonReleasedNotification {
+  int32 user_id = 1; // ボタンを離したユーザーID
+}
+
+// 移動に関する通知メッセージ
+message MoveNotification {
+  int32 user_id = 1; // 移動したユーザーID
+  Direction direction = 2; // 移動方向
+}
+
+// サービス定義
+service RoomService {
+  // 部屋を作成
+  rpc CreateRoom(CreateRoomRequest) returns (CreateRoomResponse);
+
+  // 部屋にユーザーが参加するのを待つ
+  rpc WaitForUserJoin(WaitForUserJoinRequest) returns (stream UserJoinedNotification);
+
+  // ゲームを開始するボタンが押された
+  rpc StartGame(StartGameRequest) returns (stream GameEventNotification);
+
+  // 部屋を閉じる
+  rpc CloseRoom(CloseRoomRequest) returns (google.protobuf.Empty);
+}
+
+// ゲーム中のイベント通知メッセージ
+message GameEventNotification {
+  oneof event {
+    PushButtonPressedNotification push_button_pressed = 1; // ボタン押下の通知 (押した)
+    PushButtonReleasedNotification push_button_released = 2; // ボタン押下の通知 (離した)
+    MoveNotification move_button = 3; // 移動の通知
+  }
+}
+
+import "google/protobuf/empty.proto";
