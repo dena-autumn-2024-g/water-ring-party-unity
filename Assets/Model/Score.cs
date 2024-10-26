@@ -11,13 +11,8 @@ public class Score
 
     public void AddPoints(int points)
     {
-        if (points < 0)
-        {
-            throw new ArgumentException("ポイントは0以上である必要があります。");
-        }
         currentScore += points;
     }
-
     public void ResetScore()
     {
         currentScore = 0;

@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Timer timer;
-    public Score score;
+    private Timer timer;
+    private Score score;
     public GameObject ringPrefab;
     public GameObject[] poleObjects;
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(ringPrefab);
+        score = new Score();
+        timer = new Timer();
+        timer.StartTimer();
         foreach (var pole in poleObjects)
         {
             var stick = pole.transform.Find("stick");
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        StartCoroutine(SpawnRingsCoroutine());
     }
 
     // Update is called once per frame
@@ -34,6 +37,24 @@ public class GameManager : MonoBehaviour
 
     void OnTriggerStateChanged(bool isEnter)
     {
-        Debug.Log("物体が入りました: " + isEnter);
+        if (isEnter)
+        {
+            score.AddPoints(10);
+            Debug.Log(score.ToString());
+        }
+        else
+        {
+            score.AddPoints(-10);
+            Debug.Log(score.ToString());
+        }
+    }
+
+    private IEnumerator SpawnRingsCoroutine()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            Instantiate(ringPrefab);
+            yield return new WaitForSeconds(1f);
+        }
     }
 }
