@@ -311,7 +311,7 @@ Transform:
   m_GameObject: {fileID: 731006097}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: -0.3, z: -11.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -414,7 +414,7 @@ MonoBehaviour:
   WX: 12
   WY: 12
   WZ: 3
-  delta_t: 0.3
+  delta_t: 0.5
   Re: 1000000
   omega: 1.8
   rys_num: 1024
