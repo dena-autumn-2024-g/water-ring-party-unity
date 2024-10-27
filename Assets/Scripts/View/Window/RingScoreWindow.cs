@@ -9,7 +9,7 @@ public class RingScoreWindow : MonoBehaviour
     void Start()
     {
         int score = CommonInfoManager.SCORE_RING_COUNT;
-        scoreText.text = score.ToString() + " rings";
+        scoreText.text = (score/10).ToString() + " rings";
     }
 
 }
