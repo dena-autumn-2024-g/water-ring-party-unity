@@ -282,6 +282,13 @@ MonoBehaviour:
   - {fileID: 164605134}
   - {fileID: 259781718}
   fluidSimulation: {fileID: 1273116923}
+  iconPrefab: {fileID: 8372257243289751310, guid: 55ca2a22792af0f4fb1e9abb06c0ae59, type: 3}
+  iconParents:
+  - {fileID: 1448729611}
+  - {fileID: 2106840637}
+  - {fileID: 942654937}
+  - {fileID: 2070541223}
+  - {fileID: 1733426286}
 --- !u!4 &368893537
 Transform:
   m_ObjectHideFlags: 0
@@ -1968,5 +1975,4 @@ SceneRoots:
   - {fileID: 79041625254589075}
   - {fileID: 2061195260}
   - {fileID: 921044934}
-  - {fileID: 1308692268}
   - {fileID: 763154170}

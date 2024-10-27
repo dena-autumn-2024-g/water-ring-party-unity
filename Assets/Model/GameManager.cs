@@ -28,8 +28,13 @@ public class GameManager : MonoBehaviour
         foreach (var canon in canons) {
             Debug.Log("canon: " + canon.id);
         }
-        players = new Player[CommonInfoManager.NUM_PLAYER];
-        for (int i = 0; i < CommonInfoManager.NUM_PLAYER; i++) {
+
+        var numPlayer = CommonInfoManager.NUM_PLAYER;
+        if (numPlayer == 0) {
+            numPlayer = 10;
+        }
+        players = new Player[numPlayer];
+        for (int i = 0; i < numPlayer; i++) {
             players[i] = new Player(i, iconPrefab, iconParents);
             Debug.Log("player: " + players[i].GetPlayerId());
         }
