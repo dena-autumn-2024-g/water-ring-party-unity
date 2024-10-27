@@ -21,7 +21,7 @@ public class HomeWindow : Window
         {
             CreateRoomResponse response = await client.CreateRoomAsync();
             _windowManager.Activate(_windowManager.ParticipantRegistrationWindow, _windowManager.HomeWindow);
-            Debug.Log(response);
+            CommonInfoManager.ROOM_ID = response.RoomId;
             _windowManager.ParticipantRegistrationWindow.OpenRoom(response.RoomId, response.RoomUrl, client);
         });
     }
