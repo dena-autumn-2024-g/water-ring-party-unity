@@ -13,8 +13,6 @@ public class GameInProgressClient : MonoBehaviour
         var client = new WaterRingStreamClient(); // CommonInfoManager.CLIENT;
         var roomId = CommonInfoManager.ROOM_ID;
 
-        Debug.Log(roomId);
-
         client?.StartGame(roomId);
         client.OnGameEvent += OnGameEventReceived;
     }
