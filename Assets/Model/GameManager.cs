@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     
     private Canon[] canons;
     private Player[] players;
+
+    [SerializeField] private GameObject iconPrefab;
+    [SerializeField] private Transform[] iconParents;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +28,9 @@ public class GameManager : MonoBehaviour
         foreach (var canon in canons) {
             Debug.Log("canon: " + canon.id);
         }
-        players = new Player[2];
-        for (int i = 0; i < 2; i++) {
-            players[i] = new Player(i);
+        players = new Player[10];
+        for (int i = 0; i < players.Length; i++) {
+            players[i] = new Player(i, iconPrefab, iconParents);
             Debug.Log("player: " + players[i].GetPlayerId());
         }
         foreach (var pole in poleObjects)
@@ -44,13 +47,16 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(SpawnRingsCoroutine());
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        // Debug.Log(timer.GetCurrentTime());
-    
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            players[0].switchTurretNumber(1);
+            Debug.Log("→キーが押されました。全プレイヤーの砲台番号を1つ増やしました。");
+        }
     }
+
 
     void OnTriggerStateChanged(bool isEnter)
     {
