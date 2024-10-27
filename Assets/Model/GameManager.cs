@@ -158,9 +158,9 @@ public class GameManager : MonoBehaviour
         players[playerId].setTurretState(isPressed);
         var canonId = players[playerId].GetCurrentTurretNumber();
         if (isPressed) {
-            canons[canonId].addPower(Vector3.up / 8);
+            canons[canonId].addPower(Vector3.up / 2);
         } else {
-            canons[canonId].addPower(-Vector3.up / 8);
+            canons[canonId].addPower(-Vector3.up / 2);
         }
     }
 
