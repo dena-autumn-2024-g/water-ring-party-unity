@@ -9,12 +9,27 @@ public class GameManager : MonoBehaviour
     public GameObject ringPrefab;
     public GameObject[] poleObjects;
     public FluidSimulation fluidSimulation;
+    
+    private Canon[] canons;
+    private Player[] players;
     // Start is called before the first frame update
     void Start()
     {
         score = new Score();
         timer = new Timer();
         timer.StartTimer();
+        canons = new Canon[5];
+        for (int i = 0; i < 5; i++) {
+            canons[i] = new Canon(i);
+        }
+        foreach (var canon in canons) {
+            Debug.Log("canon: " + canon.id);
+        }
+        players = new Player[2];
+        for (int i = 0; i < 2; i++) {
+            players[i] = new Player(i);
+            Debug.Log("player: " + players[i].GetPlayerId());
+        }
         foreach (var pole in poleObjects)
         {
             var stick = pole.transform.Find("stick");
@@ -34,6 +49,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // Debug.Log(timer.GetCurrentTime());
+    
     }
 
     void OnTriggerStateChanged(bool isEnter)
