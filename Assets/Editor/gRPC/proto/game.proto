@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package water_ring;
+
+// 移動方向の列挙型
+enum Direction {
+  DIRECTION_UNSPECIFIED = 0;
+  DIRECTION_LEFT = 1;
+  DIRECTION_RIGHT = 2;
+}
+
+// ゲーム開始ボタンを押したリクエスト
+message StartGameStreamRequest {
+  string room_id = 1; // ルームID
+}
+
+// ボタン押下に関する通知メッセージ (押した)
+message PushButtonRequest {
+  int32 user_id = 1; // ボタンを押したユーザーID
+}
+
+message PushButtonResponse {}
+
+// ボタン押下に関する通知メッセージ (離した)
+message ReleaseButtonRequest {
+  int32 user_id = 1; // ボタンを離したユーザーID
+}
+
+message ReleaseButtonResponse {}
+
+// 移動に関する通知メッセージ
+message MoveRequest {
+  int32 user_id = 1;       // 移動したユーザーID
+  Direction direction = 2; // 移動方向
+}
+
+message MoveResponse {}
+
+// ゲーム中のイベント通知メッセージ
+message StartGameStreamResponse {
+  oneof event {
+    PushButtonRequest push_button_pressed = 1; // ボタン押下の通知 (押した)
+    ReleaseButtonRequest push_button_released = 2; // ボタン押下の通知 (離した)
+    MoveRequest move_button = 3;
+  }
+}
+
+// サービス定義
+service GameService {
+  // ゲームを開始するボタンが押された
+  rpc StartGameStream(StartGameStreamRequest)
+      returns (stream StartGameStreamResponse);
+
+  rpc Move(MoveRequest) returns (MoveResponse);
+
+  rpc PushButton(PushButtonRequest) returns (PushButtonResponse);
+
+  rpc ReleaseButton(ReleaseButtonRequest) returns (ReleaseButtonResponse);
+}

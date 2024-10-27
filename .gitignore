@@ -77,5 +77,4 @@ Packages/*/
 
 *.meta
 !/Assets/**/*.meta
-
 /Assets/Packages/Microsoft.Extensions.Logging.Abstractions.7.0.1/analyzers/dotnet/roslyn4.0/cs/Microsoft.Extensions.Logging.Generators.dll
