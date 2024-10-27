@@ -1905,7 +1905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1135689277614373774, guid: 7882e9e46b2d8c841a112940a53608e2, type: 3}
       propertyPath: size_mul
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1135689277614373774, guid: 7882e9e46b2d8c841a112940a53608e2, type: 3}
       propertyPath: powers.Array.data[0].y
