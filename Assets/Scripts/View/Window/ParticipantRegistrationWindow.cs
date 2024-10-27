@@ -25,7 +25,9 @@ public class ParticipantRegistrationWindow : Window
             _client?.StopStream();
             // シーン移動 + client.StartGame
             SceneManager.LoadScene("SampleScene");
-            _client?.StartGame(_roomId);
+            // TODO _clientを次のシーンに渡す。
+            CommonInfoManager.CLIENT = _client;
+            CommonInfoManager.ROOM_ID = _roomId;
         });
     }
 
@@ -43,6 +45,7 @@ public class ParticipantRegistrationWindow : Window
     {
         Debug.Log($"ユーザーが参加しました。ユーザーID: {response.UserId}");
         _numPeople += 1;
+        CommonInfoManager.NUM_PLAYER = _numPeople;
         Debug.Log($"人数{_numPeople}");
     }
 }

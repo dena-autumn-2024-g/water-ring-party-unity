@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
         foreach (var canon in canons) {
             Debug.Log("canon: " + canon.id);
         }
-        players = new Player[10];
-        for (int i = 0; i < players.Length; i++) {
+        players = new Player[CommonInfoManager.NUM_PLAYER];
+        for (int i = 0; i < CommonInfoManager.NUM_PLAYER; i++) {
             players[i] = new Player(i, iconPrefab, iconParents);
             Debug.Log("player: " + players[i].GetPlayerId());
         }
@@ -47,7 +47,28 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(SpawnRingsCoroutine());
     }
-    
+
+    public void MoveLeft(int playerId)
+    {
+        players[playerId].switchTurretNumber(-1);
+    }
+
+    public void MoveRight(int playerId)
+    {
+        players[playerId].switchTurretNumber(1);
+    }
+
+    public void PushButtonPressed(int playerId)
+    {
+        players[playerId].setTurretState(true);
+    }
+
+    public void PushButtonReleased(int playerId)
+    {
+        players[playerId].setTurretState(false);
+    }
+
+    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.RightArrow))
