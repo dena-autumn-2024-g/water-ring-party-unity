@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private Timer timer;
@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour
     public GameObject ringPrefab;
     public GameObject[] poleObjects;
     public FluidSimulation fluidSimulation;
+
+    public float limitTime = 300;
     
     private Canon[] canons;
     private Player[] players;
 
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Transform[] iconParents;
+    [SerializeField] private Text timerText;
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +84,14 @@ public class GameManager : MonoBehaviour
             players[0].switchTurretNumber(1);
             Debug.Log("→キーが押されました。全プレイヤーの砲台番号を1つ増やしました。");
         }
+        float remainingTime = getRemainingTime();
+        int minutes = Mathf.FloorToInt(remainingTime / 60);
+        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public float getRemainingTime() {
+        return limitTime - timer.GetCurrentTime();
     }
 
 
