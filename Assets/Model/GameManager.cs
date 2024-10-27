@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private Timer timer;
@@ -9,9 +9,15 @@ public class GameManager : MonoBehaviour
     public GameObject ringPrefab;
     public GameObject[] poleObjects;
     public FluidSimulation fluidSimulation;
+
+    public float limitTime = 300;
     
     private Canon[] canons;
     private Player[] players;
+
+    [SerializeField] private GameObject iconPrefab;
+    [SerializeField] private Transform[] iconParents;
+    [SerializeField] private Text timerText;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +31,14 @@ public class GameManager : MonoBehaviour
         foreach (var canon in canons) {
             Debug.Log("canon: " + canon.id);
         }
-        players = new Player[CommonInfoManager.NUM_PLAYER];
-        for (int i = 0; i < CommonInfoManager.NUM_PLAYER; i++) {
-            players[i] = new Player(i);
+
+        var numPlayer = CommonInfoManager.NUM_PLAYER;
+        if (numPlayer == 0) {
+            numPlayer = 10;
+        }
+        players = new Player[numPlayer];
+        for (int i = 0; i < numPlayer; i++) {
+            players[i] = new Player(i, iconPrefab, iconParents);
             Debug.Log("player: " + players[i].GetPlayerId());
         }
         foreach (var pole in poleObjects)
@@ -48,7 +59,6 @@ public class GameManager : MonoBehaviour
     public void MoveLeft(int playerId)
     {
         players[playerId].switchTurretNumber(-1);
-        //TODO �r���[���ړ�������
     }
 
     public void MoveRight(int playerId)
@@ -69,9 +79,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Debug.Log(timer.GetCurrentTime());
-    
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            players[0].switchTurretNumber(1);
+            Debug.Log("→キーが押されました。全プレイヤーの砲台番号を1つ増やしました。");
+        }
+        float remainingTime = getRemainingTime();
+        int minutes = Mathf.FloorToInt(remainingTime / 60);
+        int seconds = Mathf.FloorToInt(remainingTime % 60);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
+    public float getRemainingTime() {
+        return limitTime - timer.GetCurrentTime();
+    }
+
 
     void OnTriggerStateChanged(bool isEnter)
     {
