@@ -1783,6 +1783,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1135689277614373774, guid: 7882e9e46b2d8c841a112940a53608e2, type: 3}
+      propertyPath: powers.Array.data[0].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135689277614373774, guid: 7882e9e46b2d8c841a112940a53608e2, type: 3}
+      propertyPath: powers.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135689277614373774, guid: 7882e9e46b2d8c841a112940a53608e2, type: 3}
+      propertyPath: powers.Array.data[2].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135689277614373774, guid: 7882e9e46b2d8c841a112940a53608e2, type: 3}
+      propertyPath: powers.Array.data[3].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135689277614373774, guid: 7882e9e46b2d8c841a112940a53608e2, type: 3}
+      propertyPath: powers.Array.data[4].y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4592679017689584420, guid: 7882e9e46b2d8c841a112940a53608e2, type: 3}
       propertyPath: m_Name
       value: FluidSimulation
