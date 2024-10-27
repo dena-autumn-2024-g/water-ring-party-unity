@@ -76,7 +76,9 @@ namespace VContainer.Editor
 
             var fullPath = Path.Combine(Application.dataPath, scriptPath);
             File.WriteAllText(fullPath, content);
+            #if UNITY_EDITOR
             AssetDatabase.Refresh();
+            #endif
         }
 
 #if UNITY_2020_2_OR_NEWER
