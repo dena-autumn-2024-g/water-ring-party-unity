@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public FluidSimulation fluidSimulation;
 
     public float limitTime = 300;
+    public int RingNum = 20;
     
     private Canon[] canons;
     private Player[] players;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Transform[] iconParents;
     [SerializeField] private Text timerText;
+    [SerializeField] private Text scoreText;
     // Start is called before the first frame update
     void Start()
     {
@@ -144,6 +146,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < canons.Length; i++) {
             fluidSimulation.powers[i] = canons[i].power;
         }
+
+        // スコアを表示
+        scoreText.text = (score.GetCurrentScore()/10).ToString() + "/" + RingNum.ToString();
     }
 
     public void handleButtonPressed(int playerId, bool isPressed) {
@@ -153,9 +158,9 @@ public class GameManager : MonoBehaviour
         players[playerId].setTurretState(isPressed);
         var canonId = players[playerId].GetCurrentTurretNumber();
         if (isPressed) {
-            canons[canonId].addPower(Vector3.up);
+            canons[canonId].addPower(Vector3.up / 8);
         } else {
-            canons[canonId].addPower(-Vector3.up);
+            canons[canonId].addPower(-Vector3.up / 8);
         }
     }
 
@@ -184,7 +189,35 @@ public class GameManager : MonoBehaviour
         {
             var prefab = Instantiate(ringPrefab);
             prefab.GetComponent<ringController>().fluidSimulation = fluidSimulation;
-            yield return new WaitForSeconds(0.2f);
+            
+            // x座標を-22から22までランダムに配置
+            float randomX = Random.Range(-22f, 22f);
+            prefab.transform.position = new Vector3(randomX, prefab.transform.position.y, prefab.transform.position.z);
+            
+            // プレハブのマテリアルの色をランダムに設定
+            Renderer renderer = prefab.GetComponent<Renderer>();
+            Debug.Log(renderer);
+            if (renderer != null)
+            {
+                Material material = renderer.material;
+                Color[] colors = new Color[]
+                {
+                    new Color(0.043f, 0.478f, 0.816f),
+                    new Color(1f, 0.094f, 0.094f),
+                    new Color(0.071f, 0.694f, 0f),
+                    new Color(1f, 0.922f, 0.231f),
+                    new Color(0.612f, 0.157f, 0.690f)
+                };
+                int colorIndex = i % colors.Length;
+                Color selectedColor = colors[colorIndex];
+                material.color = selectedColor;
+                
+                // エミッションの設定
+                material.EnableKeyword("_EMISSION");
+                material.SetColor("_EmissionColor", selectedColor * 0.8f);
+            }
+            
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
