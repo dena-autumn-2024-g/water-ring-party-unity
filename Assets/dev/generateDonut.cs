@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using UnityEditor.UI;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class CreateTorus : MonoBehaviour
@@ -27,7 +27,7 @@ public class CreateTorus : MonoBehaviour
         var triangles = new List<int>();
         var normals = new List<Vector3>();
 
-        // (1) ƒg[ƒ‰ƒX‚ÌŒvZ
+        // (1) ï¿½gï¿½[ï¿½ï¿½ï¿½Xï¿½ÌŒvï¿½Z
         for (int i = 0; i <= n; i++)
         {
             var phi = Mathf.PI * 2.0f * i / n;
@@ -41,7 +41,7 @@ public class CreateTorus : MonoBehaviour
                 var z = Mathf.Sin(theta) * (r1 + tr);
 
                 vertices.Add(new Vector3(x, y, z));
-                // (2) –@ü‚ÌŒvZ
+                // (2) ï¿½@ï¿½ï¿½ï¿½ÌŒvï¿½Z
                 normals.Add(new Vector3(tr * Mathf.Cos(theta), y, tr * Mathf.Sin(theta)));
             }
         }
@@ -51,7 +51,7 @@ public class CreateTorus : MonoBehaviour
             for (int j = 0; j < n; j++)
             {
                 var count = (n + 1) * j + i;
-                // (3) ’¸“_ƒCƒ“ƒfƒbƒNƒX‚ğw’è
+                // (3) ï¿½ï¿½ï¿½_ï¿½Cï¿½ï¿½ï¿½fï¿½bï¿½Nï¿½Xï¿½ï¿½ï¿½wï¿½ï¿½
                 triangles.Add(count);
                 triangles.Add(count + n + 2);
                 triangles.Add(count + 1);
@@ -84,7 +84,9 @@ public class CreateTorus : MonoBehaviour
 
     private void SaveMesh()
     {
+        #if UNITY_EDITOR
         UnityEditor.AssetDatabase.CreateAsset(_mesh, "Assets/torus.asset");
         UnityEditor.AssetDatabase.SaveAssets();
+        #endif
     }
 }

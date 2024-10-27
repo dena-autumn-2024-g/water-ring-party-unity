@@ -41,7 +41,9 @@ namespace VContainer.Unity
                 return;
 
             var newSettings = CreateInstance<VContainerSettings>();
+            #if UNITY_EDITOR
             UnityEditor.AssetDatabase.CreateAsset(newSettings, path);
+            #endif
 
             var preloadedAssets = UnityEditor.PlayerSettings.GetPreloadedAssets().ToList();
             preloadedAssets.RemoveAll(x => x is VContainerSettings);
