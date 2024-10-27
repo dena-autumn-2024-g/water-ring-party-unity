@@ -131,7 +131,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 17068909}
-  - component: {fileID: 17068910}
   m_Layer: 5
   m_Name: ScoreWindow
   m_TagString: Untagged
@@ -169,20 +168,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &17068910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 17068908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7af769e6a6c1904f920f8172ff57965, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startGameButton: {fileID: 8774298915320253733}
-  _qRcodePanel: {fileID: 0}
 --- !u!1 &67639815
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +295,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.5991821, y: 121.99997}
-  m_SizeDelta: {x: 1000, y: 500}
+  m_SizeDelta: {x: 1300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &244317627
 MonoBehaviour:
@@ -483,7 +468,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.5991821, y: 121.99997}
-  m_SizeDelta: {x: 1000, y: 500}
+  m_SizeDelta: {x: 1300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &577000989
 MonoBehaviour:
@@ -518,7 +503,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00
+  m_Text: 00 seconds
 --- !u!222 &577000990
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -562,7 +547,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.5991821, y: 226.99997}
-  m_SizeDelta: {x: 1000, y: 500}
+  m_SizeDelta: {x: 1300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &712505343
 MonoBehaviour:
@@ -606,7 +591,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712505341}
   m_CullTransparentMesh: 1
---- !u!21 &781949866
+--- !u!21 &1043147194
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -741,10 +726,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1521436231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afa1ce7d921bd4b0f9c4b5d91ca49008, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ef84dc3e90ac4fb9ba2d1436934f980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
   scoreText: {fileID: 1978711466}
 --- !u!1 &1621980404
 GameObject:
@@ -976,7 +960,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400f78945754b45e698ce64794f6144c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 100
   scoreText: {fileID: 1621980406}
 --- !u!1 &1978711464
 GameObject:
@@ -1013,7 +996,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.5991821, y: 227}
-  m_SizeDelta: {x: 1000, y: 500}
+  m_SizeDelta: {x: 1300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1978711466
 MonoBehaviour:
@@ -1048,7 +1031,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 00
+  m_Text: 00 rings
 --- !u!222 &1978711467
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1155,10 +1138,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2026520368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afa1ce7d921bd4b0f9c4b5d91ca49008, type: 3}
+  m_Script: {fileID: 11500000, guid: a5792406f1a8f42a4b578b791c7a3f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
   scoreText: {fileID: 577000989}
 --- !u!1 &2128946371
 GameObject:
@@ -1239,19 +1221,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128946371}
   m_CullTransparentMesh: 1
---- !u!114 &2043331569310455086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4449824070717016701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 962467b1234bb8242929cee490044e39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _image: {fileID: 3716934279593209904}
 --- !u!224 &2090105944359401736
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1463,7 +1432,7 @@ GameObject:
   - component: {fileID: 3569017332490037605}
   - component: {fileID: 6560963782760575466}
   - component: {fileID: 9044563424696956897}
-  - component: {fileID: 8774298915320253733}
+  - component: {fileID: 9044563424696956898}
   - component: {fileID: 1983407718}
   m_Layer: 5
   m_Name: StartGameButton
@@ -1483,7 +1452,6 @@ GameObject:
   - component: {fileID: 5326996227487153110}
   - component: {fileID: 6660596364146403743}
   - component: {fileID: 3716934279593209904}
-  - component: {fileID: 2043331569310455086}
   m_Layer: 5
   m_Name: BackgroundPanel
   m_TagString: Untagged
@@ -1522,7 +1490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 781949866}
+  m_Material: {fileID: 1043147194}
   m_Color: {r: 0.9647059, g: 0.3764706, b: 0.078431375, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1548,19 +1516,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4449824070717016701}
   m_CullTransparentMesh: 1
---- !u!114 &8774298915320253733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4122302208353629751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef32a52d6712a7408e8256453bd9331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _button: {fileID: 9044563424696956897}
 --- !u!114 &9044563424696956897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,7 +1559,32 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6560963782760575466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9044563424696956898}
+        m_TargetAssemblyTypeName: RestartButton, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9044563424696956898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122302208353629751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df52480968bc4163929273370b36bc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: OutGameScene
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
