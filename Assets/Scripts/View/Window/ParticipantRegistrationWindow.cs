@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WaterRing;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 public class ParticipantRegistrationWindow : Window
 {
@@ -21,11 +22,11 @@ public class ParticipantRegistrationWindow : Window
     {
         _startGameButton.Observable.Subscribe((_) =>
         {
-            Debug.Log("Pass");
             _client?.StopStream();
             // ÉVÅ[Éìà⁄ìÆ + client.StartGame
+            SceneManager.LoadScene("SampleScene");
+            _client?.StartGame(_roomId);
         });
-
     }
 
     public void OpenRoom(string roomId, string roomURL, WaterRingStreamClient client)
@@ -36,7 +37,6 @@ public class ParticipantRegistrationWindow : Window
 
         client.OnUserJoined += OnUserJoinedHandler;
         client.WaitForUserJoin(roomId);
-
     }
 
     private void OnUserJoinedHandler(WaitForUserJoinResponse response)

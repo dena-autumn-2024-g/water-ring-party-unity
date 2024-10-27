@@ -26,6 +26,20 @@ public class HomeWindow : Window
 
 
         // Ç±Ç±Ç≈ê⁄ë±ÉeÉXÉg
-        
+        Request();
+    }
+
+    private const string URL = "https://wrp.mazrean.com";
+
+    private void Request()
+    {
+        using var handler = new YetAnotherHttpHandler();
+        using var channel = GrpcChannel.ForAddress(URL, new GrpcChannelOptions
+        {
+            HttpHandler = handler,
+            DisposeHttpClient = true,
+        });
+        var client = new RoomService.RoomServiceClient(channel);
+        var reply = client.CreateRoom(new CreateRoomRequest());// .SayHello(new HelloRequest { Name = "UnityClient" });
     }
 }

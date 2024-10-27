@@ -12,7 +12,7 @@ using WaterRing;
 
 public class WaterRingStreamClient
 {
-    static readonly string Address = "https://localhost:8080";
+    static readonly string Address = "https://wrp.mazrean.com";
 
     public delegate void UserJoinedHandler(WaitForUserJoinResponse notification);
     public delegate void GameEventHandler(StartGameStreamResponse notification);
