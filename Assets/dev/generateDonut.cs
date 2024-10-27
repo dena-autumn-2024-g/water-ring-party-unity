@@ -84,7 +84,9 @@ public class CreateTorus : MonoBehaviour
 
     private void SaveMesh()
     {
+        #if UNITY_EDITOR
         UnityEditor.AssetDatabase.CreateAsset(_mesh, "Assets/torus.asset");
         UnityEditor.AssetDatabase.SaveAssets();
+        #endif
     }
 }
