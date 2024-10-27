@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
     private Timer timer;
@@ -53,7 +55,19 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        _isRunning = true;
         StartCoroutine(SpawnRingsCoroutine());
+    }
+
+    private bool _isRunning = false;
+
+    public void OnGameFinished()
+    {   // 時間切れで終了
+        CommonInfoManager.SCORE_LEFT_TIME = 0;
+        CommonInfoManager.SCORE_RING_COUNT = score.GetCurrentScore();
+        CommonInfoManager.SCORE_POINT = score.GetCurrentScore() + CommonInfoManager.SCORE_LEFT_TIME;
+
+        SceneManager.LoadScene("Score");
     }
 
     public void MoveLeft(int playerId)
@@ -87,6 +101,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_isRunning)
+        {
+            float time = getRemainingTime();
+            if (time <= 0)
+            {
+                OnGameFinished();
+            }
+
+            if (score.GetCurrentScore() == 200)
+            {
+                OnGameFinished();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             if (!players[0].GetTurretState()) {  
