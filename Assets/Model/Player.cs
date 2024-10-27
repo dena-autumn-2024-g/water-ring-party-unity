@@ -28,7 +28,7 @@ class Player
     // 砲台番号を切り替える関数
     public void switchTurretNumber(int newNumber)
     {
-        currentTurretNumber = (currentTurretNumber + newNumber) % 5;
+        currentTurretNumber = (currentTurretNumber + newNumber + 5) % 5;
         Debug.Log("switchTurretNumber: " + currentTurretNumber);
         // iconColorの親を変更
         iconObject.transform.SetParent(iconParents[currentTurretNumber]);

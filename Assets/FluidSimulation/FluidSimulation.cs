@@ -29,7 +29,7 @@ public class FluidSimulation : MonoBehaviour {
     /// <summary>オフセットX</summary>
     [SerializeField] private Vector3 offset = Vector3.zero;
     /// <summary>外力ベクトル</summary>
-    [SerializeField] private Vector3 power = new Vector3(0f, 1f, 0f);
+    public Vector3[] powers = new Vector3[5];
 
     public Vector3Int[] block_positions;
 
@@ -85,21 +85,11 @@ public class FluidSimulation : MonoBehaviour {
         viscosity(); // 粘性
 
         // 別の力をスペースキーで制御
-        if (Input.GetKey(KeyCode.Alpha1)) {
-            ApplyForce(new Vector3(3, 3, WZ/2), power);
-        }
-        if (Input.GetKey(KeyCode.Alpha2)) {
-            ApplyForce(new Vector3(9, 3, WZ/2), power);
-        }
-        if (Input.GetKey(KeyCode.Alpha3)) {
-            ApplyForce(new Vector3(14, 3, WZ/2), power);
-        }
-        if (Input.GetKey(KeyCode.Alpha4)) {
-            ApplyForce(new Vector3(19, 3, WZ/2), power);
-        }
-        if (Input.GetKey(KeyCode.Alpha5)) {
-            ApplyForce(new Vector3(25, 3, WZ/2), power);
-        }
+        ApplyForce(new Vector3(3, 3, WZ/2), powers[0]);
+        ApplyForce(new Vector3(9, 3, WZ/2), powers[1]);
+        ApplyForce(new Vector3(14, 3, WZ/2), powers[2]);
+        ApplyForce(new Vector3(19, 3, WZ/2), powers[3]);
+        ApplyForce(new Vector3(25, 3, WZ/2), powers[4]);
 
         set(); // 壁速度0に固定
         div(); // ダイバージェンス計算

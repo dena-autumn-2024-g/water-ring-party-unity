@@ -11,4 +11,8 @@ class Canon {
     public void setPower(Vector3 power) {
         this.power = power;
     }
+
+    public void addPower(Vector3 power) {
+        this.power += power;
+    }
 }

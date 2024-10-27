@@ -72,22 +72,30 @@ public class GameManager : MonoBehaviour
 
     public void MoveLeft(int playerId)
     {
-        players[playerId].switchTurretNumber(-1);
+        if (!players[playerId].GetTurretState()) {  
+            players[playerId].switchTurretNumber(-1);
+            Debug.Log($"←キーが押されました。プレイヤーID: {playerId}");
+        }
     }
 
     public void MoveRight(int playerId)
     {
-        players[playerId].switchTurretNumber(1);
+        if (!players[playerId].GetTurretState()) {  
+            players[playerId].switchTurretNumber(1);
+            Debug.Log($"→キーが押されました。プレイヤーID: {playerId}");
+        }
     }
 
     public void PushButtonPressed(int playerId)
     {
-        players[playerId].setTurretState(true);
+            handleButtonPressed(playerId, true);
+            Debug.Log($"スペースキーが押されました。プレイヤーID: {playerId}");
     }
 
     public void PushButtonReleased(int playerId)
     {
-        players[playerId].setTurretState(false);
+        handleButtonPressed(playerId, false);
+        Debug.Log($"スペースキーが離されました。プレイヤーID: {playerId}");
     }
 
     // Update is called once per frame
@@ -109,13 +117,46 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            players[0].switchTurretNumber(1);
-            Debug.Log("→キーが押されました。全プレイヤーの砲台番号を1つ増やしました。");
+            if (!players[0].GetTurretState()) {  
+                players[0].switchTurretNumber(1);
+                Debug.Log("→キーが押されました。");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            if (!players[0].GetTurretState()) {
+                players[0].switchTurretNumber(-1);
+                Debug.Log("←キーが押されました。");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            handleButtonPressed(0, true);
+            Debug.Log("スペースキーが押されました。");
+        }
+        if (Input.GetKeyUp(KeyCode.Space)) {
+            handleButtonPressed(0, false);
+            Debug.Log("スペースキーが離されました。");
         }
         float remainingTime = getRemainingTime();
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+        for (int i = 0; i < canons.Length; i++) {
+            fluidSimulation.powers[i] = canons[i].power;
+        }
+    }
+
+    public void handleButtonPressed(int playerId, bool isPressed) {
+        var previousState = players[playerId].GetTurretState();
+        if (previousState == isPressed) { return; }
+        Debug.Log("handleButtonPressed: " + playerId + " " + isPressed);
+        players[playerId].setTurretState(isPressed);
+        var canonId = players[playerId].GetCurrentTurretNumber();
+        if (isPressed) {
+            canons[canonId].addPower(Vector3.up);
+        } else {
+            canons[canonId].addPower(-Vector3.up);
+        }
     }
 
     public float getRemainingTime() {
