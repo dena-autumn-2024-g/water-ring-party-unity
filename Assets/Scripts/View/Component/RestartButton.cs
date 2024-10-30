@@ -18,5 +18,10 @@ public class RestartButton : MonoBehaviour
     public void ChangeToHomeScene()
     {
         SceneManager.LoadScene(HomeSceneName);
+
+        var client = new WaterRingStreamClient();
+        var roomId = CommonInfoManager.ROOM_ID;
+
+        client?.CloseRoomAsync(roomId);
     }
 }
