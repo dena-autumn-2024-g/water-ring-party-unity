@@ -13,6 +13,9 @@ public class ParticipantRegistrationWindow : Window
     [SerializeField]
     private QRcodePanel _qRcodePanel;
 
+    [SerializeField]
+    private UserCounter _userCounter;
+
     private string _roomId;
     private WaterRingStreamClient _client;
 
@@ -47,5 +50,7 @@ public class ParticipantRegistrationWindow : Window
         _numPeople += 1;
         CommonInfoManager.NUM_PLAYER = _numPeople;
         Debug.Log($"êlêî{_numPeople}");
+
+        _userCounter.AddUser();
     }
 }
