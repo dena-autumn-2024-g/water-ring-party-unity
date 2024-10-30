@@ -7,15 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class RestartButton : MonoBehaviour
 {
+    public string RestartSceneName;
+    public string HomeSceneName;
 
-    // シーン名を指定
-    public string sceneToLoad;
-
-    // ボタンが押されたときに呼び出されるメソッド
-    public void ChangeScene()
+    public void ChangeToRestartScene()
     {
-        SceneManager.LoadScene(sceneToLoad);
+        SceneManager.LoadScene(RestartSceneName);
     }
 
-
+    public void ChangeToHomeScene()
+    {
+        SceneManager.LoadScene(HomeSceneName);
+    }
 }
