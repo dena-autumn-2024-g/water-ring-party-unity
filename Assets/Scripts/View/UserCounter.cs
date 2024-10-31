@@ -10,16 +10,14 @@ public class UserCounter : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _text;
 
-    private uint _userCount = 0;
 
     private void Awake()
     {
-        _text.text = $"{_userCount} / 10";
+        _text.text = $"0 / 10";
     }
 
-    public void AddUser()
+    public void SetUser(int userCount)
     {
-        _userCount++;
-        _text.text = $"{_userCount} / 10";
+        _text.text = $"{userCount} / 10";
     }
 }

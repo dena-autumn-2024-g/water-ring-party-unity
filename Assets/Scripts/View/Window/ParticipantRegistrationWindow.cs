@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class ParticipantRegistrationWindow : Window
 {
     [SerializeField]
-    private BaseButton _startGameButton;
+    private StartGameButton _startGameButton;
 
     [SerializeField]
     private QRcodePanel _qRcodePanel;
@@ -49,8 +49,8 @@ public class ParticipantRegistrationWindow : Window
         Debug.Log($"ユーザーが参加しました。ユーザーID: {response.UserId}");
         _numPeople += 1;
         CommonInfoManager.NUM_PLAYER = _numPeople;
-        Debug.Log($"人数{_numPeople}");
 
-        _userCounter.AddUser();
+        _startGameButton.SetInteractable(true);
+        _userCounter.SetUser(_numPeople);
     }
 }
