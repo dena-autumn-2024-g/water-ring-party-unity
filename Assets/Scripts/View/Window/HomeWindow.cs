@@ -18,7 +18,17 @@ public class HomeWindow : Window
     {
         _createRoomButton.Observable.Subscribe(async (_) =>
         {
+
+            var homeWindow = _windowManager.HomeWindow;
+            var createRoomWindow = _windowManager.CreateRoomLoadingWindow;
+            //_windowManager.Activate(createRoomWindow, _windowManager.HomeWindow);
+            createRoomWindow.gameObject.SetActive(true);
+            createRoomWindow.StartLoadingTextAnimation();
+
             CreateRoomResponse response = await CommonInfoManager.CLIENT.CreateRoomAsync();
+            _windowManager.Activate(_windowManager.ParticipantRegistrationWindow, createRoomWindow);
+            homeWindow.gameObject.SetActive(false);
+            createRoomWindow.StopLoadingTextAnimation();
             CommonInfoManager.ROOM_ID = response.RoomId;
             CommonInfoManager.ROOM_URL = response.RoomUrl;
 
