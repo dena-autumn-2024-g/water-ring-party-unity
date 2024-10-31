@@ -282,7 +282,7 @@ MonoBehaviour:
   - {fileID: 164605134}
   - {fileID: 259781718}
   fluidSimulation: {fileID: 1273116923}
-  limitTime: 60
+  limitTime: 300
   RingNum: 20
   iconPrefab: {fileID: 8372257243289751310, guid: 55ca2a22792af0f4fb1e9abb06c0ae59, type: 3}
   iconParents:
