@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("スペースキーが離されました。");
         }
         float remainingTime = getRemainingTime();
+        remainingTime = remainingTime < 0 ? 0 : remainingTime;
         int minutes = Mathf.FloorToInt(remainingTime / 60);
         int seconds = Mathf.FloorToInt(remainingTime % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
