@@ -16,13 +16,15 @@ public class HomeWindow : Window
 
     public void Awake()
     {
-        var client = new WaterRingStreamClient();
         _createRoomButton.Observable.Subscribe(async (_) =>
         {
-            CreateRoomResponse response = await client.CreateRoomAsync();
-            _windowManager.Activate(_windowManager.ParticipantRegistrationWindow, _windowManager.HomeWindow);
+            CreateRoomResponse response = await CommonInfoManager.CLIENT.CreateRoomAsync();
             CommonInfoManager.ROOM_ID = response.RoomId;
-            _windowManager.ParticipantRegistrationWindow.OpenRoom(response.RoomId, response.RoomUrl, client);
+            CommonInfoManager.ROOM_URL = response.RoomUrl;
+
+            _windowManager.ParticipantRegistrationWindow.OpenRoom();
+
+            _windowManager.Activate(_windowManager.ParticipantRegistrationWindow, _windowManager.HomeWindow);
         });
     }
 }

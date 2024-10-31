@@ -12,11 +12,13 @@ public class RestartButton : MonoBehaviour
 
     public void ChangeToRestartScene()
     {
-        SceneManager.LoadScene(RestartSceneName);
+        CommonInfoManager.END_GAME = true;
+        SceneManager.LoadScene(HomeSceneName);
     }
 
     public void ChangeToHomeScene()
     {
+        CommonInfoManager.END_GAME = false;
         SceneManager.LoadScene(HomeSceneName);
 
         var client = new WaterRingStreamClient();
