@@ -29,8 +29,9 @@ public class HomeWindow : Window
             _windowManager.Activate(_windowManager.ParticipantRegistrationWindow, createRoomWindow);
             homeWindow.gameObject.SetActive(false);
             createRoomWindow.StopLoadingTextAnimation();
-            CommonInfoManager.ROOM_ID = response.RoomId;
-            CommonInfoManager.ROOM_URL = response.RoomUrl;
+
+            CommonInfoManager.ROOM_ID = response?.RoomId;
+            CommonInfoManager.ROOM_URL = response?.RoomUrl;
             CommonInfoManager.NUM_PLAYER = 0;
 
             _windowManager.ParticipantRegistrationWindow.OpenRoom();

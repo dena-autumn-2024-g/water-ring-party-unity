@@ -4,6 +4,7 @@ using UnityEngine;
 using WaterRing;
 using UniRx;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ParticipantRegistrationWindow : Window
 {
@@ -12,6 +13,8 @@ public class ParticipantRegistrationWindow : Window
 
     [SerializeField]
     private QRcodePanel _qRcodePanel;
+    [SerializeField]
+    private TextMeshProUGUI _qRErrorText;
 
     [SerializeField]
     private UserCounter _userCounter;
@@ -36,6 +39,14 @@ public class ParticipantRegistrationWindow : Window
     {
         Debug.Log($"部屋を開きます。プレイヤー数: {CommonInfoManager.NUM_PLAYER}");
         _qRcodePanel.GenerateQRCode(CommonInfoManager.ROOM_URL);
+        if (CommonInfoManager.ROOM_URL == null)
+        {
+            _qRErrorText.gameObject.SetActive(true);
+        }
+        else
+        {
+            _qRErrorText.gameObject.SetActive(false);
+        }
 
         _userCounter.SetUser(CommonInfoManager.NUM_PLAYER);
         if (CommonInfoManager.NUM_PLAYER > 0)
