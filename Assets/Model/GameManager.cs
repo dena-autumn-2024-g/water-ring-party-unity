@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,11 +23,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform[] iconParents;
     [SerializeField] private Text timerText;
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text ringSumText;
 
     [SerializeField] private float fluidPower = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
+        _prevRingCount = 0;
+        DecreaseScoreCount(_prevRingCount);
         score = new Score();
         timer = new Timer();
         timer.StartTimer();
@@ -151,7 +155,42 @@ public class GameManager : MonoBehaviour
         }
 
         // スコアを表示
-        scoreText.text = (score.GetCurrentScore()/10).ToString() + "/" + RingNum.ToString();
+        int nowRingCount = score.GetCurrentScore() / 10;
+        if (_prevRingCount < nowRingCount)
+        {
+            IncreaseScoreText(nowRingCount);
+        }
+        else if (nowRingCount < _prevRingCount)
+        {
+            DecreaseScoreCount(nowRingCount);
+        }
+        _prevRingCount = nowRingCount;
+    }
+
+    private int _prevRingCount = 0;
+
+    private void DecreaseScoreCount(int count)
+    {
+        scoreText.text = $"{count} ";
+        ringSumText.text = "/ " + RingNum.ToString();
+    }
+
+    private void IncreaseScoreText(int count)
+    {
+        scoreText.transform.DOComplete();
+        scoreText.transform.DOKill();
+
+        scoreText.text = $"{count} ";
+        ringSumText.text = "/ " + RingNum.ToString();
+
+        scoreText.transform.localScale = Vector3.one;
+        scoreText.transform.DOScale(1.5f, 0.2f)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() =>
+            {
+                scoreText.transform.DOScale(1f, 0.2f)
+                    .SetEase(Ease.InQuad);
+            });
     }
 
     public void handleButtonPressed(int playerId, bool isPressed) {
