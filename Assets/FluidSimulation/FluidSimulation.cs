@@ -81,15 +81,15 @@ public class FluidSimulation : MonoBehaviour {
     }
 
     private void Update() {
-        adve(); // 移流（一時風上差分）
+        adve(); // 移流（一時風上差分）   
         viscosity(); // 粘性
 
         // 別の力をスペースキーで制御
-        ApplyForce(new Vector3(3, 3, WZ/2), powers[0]);
-        ApplyForce(new Vector3(9, 3, WZ/2), powers[1]);
-        ApplyForce(new Vector3(14, 3, WZ/2), powers[2]);
-        ApplyForce(new Vector3(19, 3, WZ/2), powers[3]);
-        ApplyForce(new Vector3(25, 3, WZ/2), powers[4]);
+        ApplyForce(new Vector3(4, 3, WZ/2),  powers[0]);
+        ApplyForce(new Vector3(10, 3, WZ/2), powers[1]);
+        ApplyForce(new Vector3(15, 3, WZ/2), powers[2]);
+        ApplyForce(new Vector3(20, 3, WZ/2), powers[3]);
+        ApplyForce(new Vector3(26, 3, WZ/2), powers[4]);
 
         set(); // 壁速度0に固定
         div(); // ダイバージェンス計算

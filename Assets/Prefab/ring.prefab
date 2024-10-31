@@ -534,9 +534,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4311038195207239142}
   serializedVersion: 4
-  m_Mass: 0.1
-  m_Drag: 2
-  m_AngularDrag: 2
+  m_Mass: 0.015
+  m_Drag: 6
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fluidSimulation: {fileID: 0}
-  forceMultiplier: 100
+  forceMultiplier: 1000
   child1: {fileID: 634535702148221055}
   child2: {fileID: 5230853362836186279}
 --- !u!1 &4708166568070691402
@@ -810,7 +810,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.2800136, y: 0.729581, z: 2.4352684}
+  m_LocalScale: {x: 2.2800136, y: 0.23711382, z: 2.4352684}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4251034466678816603}
