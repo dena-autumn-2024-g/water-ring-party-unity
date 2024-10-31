@@ -17,6 +17,8 @@ public class ringController : MonoBehaviour
     
     void FixedUpdate()
     {
+        // x軸とy軸の回転を0に固定
+        transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
         var pos1 = child1.transform.position;
         var pos2 = child2.transform.position;
         // 現在位置を計算用座標系に変換

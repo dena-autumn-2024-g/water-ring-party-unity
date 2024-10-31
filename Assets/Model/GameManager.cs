@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform[] iconParents;
     [SerializeField] private Text timerText;
     [SerializeField] private Text scoreText;
+
+    [SerializeField] private float fluidPower = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -158,9 +160,9 @@ public class GameManager : MonoBehaviour
         players[playerId].setTurretState(isPressed);
         var canonId = players[playerId].GetCurrentTurretNumber();
         if (isPressed) {
-            canons[canonId].addPower(Vector3.up / 2);
+            canons[canonId].addPower(Vector3.up * fluidPower);
         } else {
-            canons[canonId].addPower(-Vector3.up / 2);
+            canons[canonId].addPower(-Vector3.up * fluidPower);
         }
     }
 
