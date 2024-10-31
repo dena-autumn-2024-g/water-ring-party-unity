@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using QRCoder;
 
 [RequireComponent(typeof(Image))]
-public class QRcodePanel: MonoBehaviour
+public class QRcodePanel : MonoBehaviour
 {
     [SerializeField]
     private Image _qRImage;
@@ -15,19 +15,19 @@ public class QRcodePanel: MonoBehaviour
 
     public void GenerateQRCode(string text)
     {
-        // QRCoderƒ‰ƒCƒuƒ‰ƒŠ‚ÌQRCodeGenerator‚ğg‚Á‚ÄQRƒR[ƒh‚ğ¶¬
+        // QRCoderï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QRCodeGeneratorï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½QRï¿½Rï¿½[ï¿½hï¿½ğ¶ï¿½
         QRCodeGenerator qrGenerator = new QRCodeGenerator();
         QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
         PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
 
-        // ƒoƒCƒg”z—ñ‚ÅQRƒR[ƒh‰æ‘œ‚ğæ“¾
+        // ï¿½oï¿½Cï¿½gï¿½zï¿½ï¿½ï¿½QRï¿½Rï¿½[ï¿½hï¿½æ‘œï¿½ï¿½ï¿½æ“¾
         byte[] qrCodeBytes = qrCode.GetGraphic(20);
 
-        // ƒoƒCƒg”z—ñ‚©‚çTexture2D‚ğ¶¬
+        // ï¿½oï¿½Cï¿½gï¿½zï¿½ñ‚©‚ï¿½Texture2Dï¿½ğ¶ï¿½
         Texture2D qrTexture = new Texture2D(_qrTextureW, _qrTextureH);
         qrTexture.LoadImage(qrCodeBytes);
 
-        // Unity‚ÌRawImage‚É•\¦
+        // Unityï¿½ï¿½RawImageï¿½É•\ï¿½ï¿½
         Sprite qrSprite = Sprite.Create(qrTexture, new Rect(0, 0, qrTexture.width, qrTexture.height), new Vector2(0.5f, 0.5f));
         _qRImage.sprite = qrSprite;
     }

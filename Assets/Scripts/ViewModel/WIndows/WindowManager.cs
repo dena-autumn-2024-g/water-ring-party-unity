@@ -21,7 +21,14 @@ public class WindowManager : MonoBehaviour
         ParticipantRegistrationWindow.gameObject.SetActive(false);
         CreateRoomLoadingWindow.gameObject.SetActive(false);
 
-        Activate(HomeWindow, null);
+        if (CommonInfoManager.END_GAME)
+        {
+            Activate(ParticipantRegistrationWindow, null);
+        }
+        else
+        {
+            Activate(HomeWindow, null);
+        }
     }
 
     public void Activate(Window openWindow, Window closeWindow)

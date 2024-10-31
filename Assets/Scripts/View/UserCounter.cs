@@ -13,11 +13,12 @@ public class UserCounter : MonoBehaviour
 
     private void Awake()
     {
-        _text.text = $"0 / 10";
+        _text.text = $"{CommonInfoManager.NUM_PLAYER} / 10";
     }
 
     public void SetUser(int userCount)
     {
+        Debug.Log($"ÉvÉåÉCÉÑÅ[êî: {userCount}");
         _text.text = $"{userCount} / 10";
     }
 }
