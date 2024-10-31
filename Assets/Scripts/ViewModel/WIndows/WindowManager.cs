@@ -5,8 +5,8 @@ using UnityEngine;
 public class WindowManager : MonoBehaviour
 {
     public HomeWindow HomeWindow;
-
     public ParticipantRegistrationWindow ParticipantRegistrationWindow;
+    public CreateRoomLoadingWindow CreateRoomLoadingWindow;
 
     public Window CurWindow { get; private set; }
 
@@ -19,6 +19,7 @@ public class WindowManager : MonoBehaviour
     {
         HomeWindow.gameObject.SetActive(false);
         ParticipantRegistrationWindow.gameObject.SetActive(false);
+        CreateRoomLoadingWindow.gameObject.SetActive(false);
 
         Activate(HomeWindow, null);
     }

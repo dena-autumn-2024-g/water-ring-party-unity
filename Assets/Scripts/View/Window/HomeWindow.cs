@@ -19,8 +19,15 @@ public class HomeWindow : Window
         var client = new WaterRingStreamClient();
         _createRoomButton.Observable.Subscribe(async (_) =>
         {
+            var homeWindow = _windowManager.HomeWindow;
+            var createRoomWindow = _windowManager.CreateRoomLoadingWindow;
+            //_windowManager.Activate(createRoomWindow, _windowManager.HomeWindow);
+            createRoomWindow.gameObject.SetActive(true);
+            createRoomWindow.StartLoadingTextAnimation();
             CreateRoomResponse response = await client.CreateRoomAsync();
-            _windowManager.Activate(_windowManager.ParticipantRegistrationWindow, _windowManager.HomeWindow);
+            _windowManager.Activate(_windowManager.ParticipantRegistrationWindow, createRoomWindow);
+            homeWindow.gameObject.SetActive(false);
+            createRoomWindow.StopLoadingTextAnimation();
             CommonInfoManager.ROOM_ID = response.RoomId;
             _windowManager.ParticipantRegistrationWindow.OpenRoom(response.RoomId, response.RoomUrl, client);
         });
