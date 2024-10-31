@@ -1,53 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ZXing;
-using ZXing.QrCode;
 using UnityEngine.UI;
+using QRCoder;
 
 [RequireComponent(typeof(Image))]
-public class QRcodePanel: MonoBehaviour
+public class QRcodePanel : MonoBehaviour
 {
     [SerializeField]
     private Image _qRImage;
-    private Texture2D _encodedQRTextire;
 
     private int _qrTextureW = 512;
     private int _qrTextureH = 512;
 
-    private void Awake()
+    public void GenerateQRCode(string text)
     {
-        string url = "https://github.com/dena-autumn-2024-g/protobuf/tree/main";
-        GenerateQRCode(url);
-    }
+        // QRCoderï¿½ï¿½ï¿½Cï¿½uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½QRCodeGeneratorï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½QRï¿½Rï¿½[ï¿½hï¿½ğ¶ï¿½
+        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
+        PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
 
-    public void GenerateQRCode(string url)
-    {
-        //V‹K‚Ì‹ó‚ÌƒeƒNƒXƒ`ƒƒ‚ğì¬
-        _encodedQRTextire = new Texture2D(_qrTextureW, _qrTextureH);
+        // ï¿½oï¿½Cï¿½gï¿½zï¿½ï¿½ï¿½QRï¿½Rï¿½[ï¿½hï¿½æ‘œï¿½ï¿½ï¿½æ“¾
+        byte[] qrCodeBytes = qrCode.GetGraphic(20);
 
-        //ƒGƒ“ƒR[ƒhˆ—
-        var color32 = Encode(url, _encodedQRTextire.width, _encodedQRTextire.height);
-        _encodedQRTextire.SetPixels32(color32);
-        _encodedQRTextire.Apply();
+        // ï¿½oï¿½Cï¿½gï¿½zï¿½ñ‚©‚ï¿½Texture2Dï¿½ğ¶ï¿½
+        Texture2D qrTexture = new Texture2D(_qrTextureW, _qrTextureH);
+        qrTexture.LoadImage(qrCodeBytes);
 
-        _qRImage.sprite = Sprite.Create(_encodedQRTextire, new Rect(0, 0, _qrTextureW, _qrTextureH), Vector2.zero);
-
-    }
-
-
-    private Color32[] Encode(string textForEncoding, int width, int height)
-    {
-        var writer = new BarcodeWriter
-        {
-            Format = BarcodeFormat.QR_CODE,
-
-            Options = new QrCodeEncodingOptions
-            {
-                Height = height,
-                Width = width
-            }
-        };
-        return writer.Write(textForEncoding);
+        // Unityï¿½ï¿½RawImageï¿½É•\ï¿½ï¿½
+        Sprite qrSprite = Sprite.Create(qrTexture, new Rect(0, 0, qrTexture.width, qrTexture.height), new Vector2(0.5f, 0.5f));
+        _qRImage.sprite = qrSprite;
     }
 }

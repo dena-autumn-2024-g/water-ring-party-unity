@@ -7,15 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class RestartButton : MonoBehaviour
 {
+    public string RestartSceneName;
+    public string HomeSceneName;
 
-    // シーン名を指定
-    public string sceneToLoad;
-
-    // ボタンが押されたときに呼び出されるメソッド
-    public void ChangeScene()
+    public void ChangeToRestartScene()
     {
-        SceneManager.LoadScene(sceneToLoad);
+        CommonInfoManager.END_GAME = true;
+        SceneManager.LoadScene(HomeSceneName);
     }
 
+    public void ChangeToHomeScene()
+    {
+        CommonInfoManager.END_GAME = false;
+        SceneManager.LoadScene(HomeSceneName);
 
+        var client = new WaterRingStreamClient();
+        var roomId = CommonInfoManager.ROOM_ID;
+
+        client?.CloseRoomAsync(roomId);
+    }
 }

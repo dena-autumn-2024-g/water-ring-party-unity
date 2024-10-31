@@ -8,44 +8,52 @@ using UnityEngine.SceneManagement;
 public class ParticipantRegistrationWindow : Window
 {
     [SerializeField]
-    private BaseButton _startGameButton;
+    private StartGameButton _startGameButton;
 
     [SerializeField]
     private QRcodePanel _qRcodePanel;
 
-    private string _roomId;
-    private WaterRingStreamClient _client;
-
-    private int _numPeople = 0;
+    [SerializeField]
+    private UserCounter _userCounter;
 
     public void Awake()
     {
+        CommonInfoManager.CLIENT = new();
         _startGameButton.Observable.Subscribe((_) =>
         {
-            _client?.StopStream();
+            CommonInfoManager.CLIENT?.StopStream();
             // シーン移動 + client.StartGame
             SceneManager.LoadScene("SampleScene");
-            // TODO _clientを次のシーンに渡す。
-            CommonInfoManager.CLIENT = _client;
-            CommonInfoManager.ROOM_ID = _roomId;
         });
+
+        if (CommonInfoManager.END_GAME)
+        {
+            OpenRoom();
+        }
     }
 
-    public void OpenRoom(string roomId, string roomURL, WaterRingStreamClient client)
+    public void OpenRoom()
     {
-        _roomId = roomId;
-        _qRcodePanel.GenerateQRCode(roomURL);
-        _numPeople = 0;
+        Debug.Log($"部屋を開きます。プレイヤー数: {CommonInfoManager.NUM_PLAYER}");
+        _qRcodePanel.GenerateQRCode(CommonInfoManager.ROOM_URL);
 
-        client.OnUserJoined += OnUserJoinedHandler;
-        client.WaitForUserJoin(roomId);
+        _userCounter.SetUser(CommonInfoManager.NUM_PLAYER);
+        if (CommonInfoManager.NUM_PLAYER > 0)
+        {
+            _startGameButton.SetInteractable(true);
+        }
+
+        CommonInfoManager.CLIENT.OnUserJoined += OnUserJoinedHandler;
+        CommonInfoManager.CLIENT.WaitForUserJoin(CommonInfoManager.ROOM_ID);
     }
 
     private void OnUserJoinedHandler(WaitForUserJoinResponse response)
     {
         Debug.Log($"ユーザーが参加しました。ユーザーID: {response.UserId}");
-        _numPeople += 1;
-        CommonInfoManager.NUM_PLAYER = _numPeople;
-        Debug.Log($"人数{_numPeople}");
+        CommonInfoManager.NUM_PLAYER++;
+
+        _startGameButton.SetInteractable(true);
+        Debug.Log($"プレイヤー数: {CommonInfoManager.NUM_PLAYER}");
+        _userCounter.SetUser(CommonInfoManager.NUM_PLAYER);
     }
 }
