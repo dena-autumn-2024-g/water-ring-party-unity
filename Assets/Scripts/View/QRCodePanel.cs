@@ -13,12 +13,6 @@ public class QRcodePanel: MonoBehaviour
     private int _qrTextureW = 512;
     private int _qrTextureH = 512;
 
-    private void Awake()
-    {
-        string url = "https://github.com/dena-autumn-2024-g/protobuf/tree/main";
-        GenerateQRCode(url);
-    }
-
     public void GenerateQRCode(string text)
     {
         // QRCoderライブラリのQRCodeGeneratorを使ってQRコードを生成
