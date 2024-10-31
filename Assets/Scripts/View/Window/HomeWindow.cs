@@ -31,6 +31,7 @@ public class HomeWindow : Window
             createRoomWindow.StopLoadingTextAnimation();
             CommonInfoManager.ROOM_ID = response.RoomId;
             CommonInfoManager.ROOM_URL = response.RoomUrl;
+            CommonInfoManager.NUM_PLAYER = 0;
 
             _windowManager.ParticipantRegistrationWindow.OpenRoom();
 
