@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ZXing;
-using ZXing.QrCode;
 using UnityEngine.UI;
+using QRCoder;
 
 [RequireComponent(typeof(Image))]
 public class QRcodePanel: MonoBehaviour
 {
     [SerializeField]
     private Image _qRImage;
-    private Texture2D _encodedQRTextire;
 
     private int _qrTextureW = 512;
     private int _qrTextureH = 512;
@@ -21,33 +19,22 @@ public class QRcodePanel: MonoBehaviour
         GenerateQRCode(url);
     }
 
-    public void GenerateQRCode(string url)
+    public void GenerateQRCode(string text)
     {
-        //新規の空のテクスチャを作成
-        _encodedQRTextire = new Texture2D(_qrTextureW, _qrTextureH);
+        // QRCoderライブラリのQRCodeGeneratorを使ってQRコードを生成
+        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+        QRCodeData qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
+        PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
 
-        //エンコード処理
-        var color32 = Encode(url, _encodedQRTextire.width, _encodedQRTextire.height);
-        _encodedQRTextire.SetPixels32(color32);
-        _encodedQRTextire.Apply();
+        // バイト配列でQRコード画像を取得
+        byte[] qrCodeBytes = qrCode.GetGraphic(20);
 
-        _qRImage.sprite = Sprite.Create(_encodedQRTextire, new Rect(0, 0, _qrTextureW, _qrTextureH), Vector2.zero);
+        // バイト配列からTexture2Dを生成
+        Texture2D qrTexture = new Texture2D(_qrTextureW, _qrTextureH);
+        qrTexture.LoadImage(qrCodeBytes);
 
-    }
-
-
-    private Color32[] Encode(string textForEncoding, int width, int height)
-    {
-        var writer = new BarcodeWriter
-        {
-            Format = BarcodeFormat.QR_CODE,
-
-            Options = new QrCodeEncodingOptions
-            {
-                Height = height,
-                Width = width
-            }
-        };
-        return writer.Write(textForEncoding);
+        // UnityのRawImageに表示
+        Sprite qrSprite = Sprite.Create(qrTexture, new Rect(0, 0, qrTexture.width, qrTexture.height), new Vector2(0.5f, 0.5f));
+        _qRImage.sprite = qrSprite;
     }
 }
