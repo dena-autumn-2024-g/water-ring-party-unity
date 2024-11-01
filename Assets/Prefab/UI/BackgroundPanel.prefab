@@ -15,14 +15,14 @@ PrefabInstance:
     - target: {fileID: 3533975761850095458, guid: da87146cd30f8e048bca6e5ab517ab01, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 52f2c5df7c619ac44baacefb0fe65563, type: 3}
+      objectReference: {fileID: 21300000, guid: 141c1820984ba0740a4f98d415d75042, type: 3}
     - target: {fileID: 3533975761850095458, guid: da87146cd30f8e048bca6e5ab517ab01, type: 3}
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4566354637880847663, guid: da87146cd30f8e048bca6e5ab517ab01, type: 3}
       propertyPath: m_Name
-      value: BackgroundPanel Variant
+      value: BackgroundPanel
       objectReference: {fileID: 0}
     - target: {fileID: 5436771550868921476, guid: da87146cd30f8e048bca6e5ab517ab01, type: 3}
       propertyPath: m_Pivot.x
