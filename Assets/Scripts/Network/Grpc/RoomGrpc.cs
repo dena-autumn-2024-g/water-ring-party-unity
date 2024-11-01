@@ -64,6 +64,10 @@ namespace WaterRing {
     static readonly grpc::Marshaller<global::WaterRing.CloseRoomRequest> __Marshaller_water_ring_CloseRoomRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::WaterRing.CloseRoomRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::WaterRing.CloseRoomResponse> __Marshaller_water_ring_CloseRoomResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::WaterRing.CloseRoomResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::WaterRing.CheckLivenessRequest> __Marshaller_water_ring_CheckLivenessRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::WaterRing.CheckLivenessRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::WaterRing.CheckLivenessResponse> __Marshaller_water_ring_CheckLivenessResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::WaterRing.CheckLivenessResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::WaterRing.CreateRoomRequest, global::WaterRing.CreateRoomResponse> __Method_CreateRoom = new grpc::Method<global::WaterRing.CreateRoomRequest, global::WaterRing.CreateRoomResponse>(
@@ -96,6 +100,14 @@ namespace WaterRing {
         "CloseRoom",
         __Marshaller_water_ring_CloseRoomRequest,
         __Marshaller_water_ring_CloseRoomResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::WaterRing.CheckLivenessRequest, global::WaterRing.CheckLivenessResponse> __Method_CheckLiveness = new grpc::Method<global::WaterRing.CheckLivenessRequest, global::WaterRing.CheckLivenessResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "CheckLiveness",
+        __Marshaller_water_ring_CheckLivenessRequest,
+        __Marshaller_water_ring_CheckLivenessResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -146,6 +158,12 @@ namespace WaterRing {
       /// <returns>The response to send back to the client (wrapped by a task).</returns>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       public virtual global::System.Threading.Tasks.Task<global::WaterRing.CloseRoomResponse> CloseRoom(global::WaterRing.CloseRoomRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::WaterRing.CheckLivenessResponse> CheckLiveness(global::WaterRing.CheckLivenessRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -319,6 +337,26 @@ namespace WaterRing {
       {
         return CallInvoker.AsyncUnaryCall(__Method_CloseRoom, null, options, request);
       }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::WaterRing.CheckLivenessResponse CheckLiveness(global::WaterRing.CheckLivenessRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CheckLiveness(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::WaterRing.CheckLivenessResponse CheckLiveness(global::WaterRing.CheckLivenessRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_CheckLiveness, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::WaterRing.CheckLivenessResponse> CheckLivenessAsync(global::WaterRing.CheckLivenessRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CheckLivenessAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::WaterRing.CheckLivenessResponse> CheckLivenessAsync(global::WaterRing.CheckLivenessRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_CheckLiveness, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
       protected override RoomServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -336,7 +374,8 @@ namespace WaterRing {
           .AddMethod(__Method_CreateRoom, serviceImpl.CreateRoom)
           .AddMethod(__Method_WaitForUserJoin, serviceImpl.WaitForUserJoin)
           .AddMethod(__Method_JoinRoom, serviceImpl.JoinRoom)
-          .AddMethod(__Method_CloseRoom, serviceImpl.CloseRoom).Build();
+          .AddMethod(__Method_CloseRoom, serviceImpl.CloseRoom)
+          .AddMethod(__Method_CheckLiveness, serviceImpl.CheckLiveness).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -350,6 +389,7 @@ namespace WaterRing {
       serviceBinder.AddMethod(__Method_WaitForUserJoin, serviceImpl == null ? null : new grpc::ServerStreamingServerMethod<global::WaterRing.WaitForUserJoinRequest, global::WaterRing.WaitForUserJoinResponse>(serviceImpl.WaitForUserJoin));
       serviceBinder.AddMethod(__Method_JoinRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::WaterRing.JoinRoomRequest, global::WaterRing.JoinRoomResponse>(serviceImpl.JoinRoom));
       serviceBinder.AddMethod(__Method_CloseRoom, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::WaterRing.CloseRoomRequest, global::WaterRing.CloseRoomResponse>(serviceImpl.CloseRoom));
+      serviceBinder.AddMethod(__Method_CheckLiveness, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::WaterRing.CheckLivenessRequest, global::WaterRing.CheckLivenessResponse>(serviceImpl.CheckLiveness));
     }
 
   }

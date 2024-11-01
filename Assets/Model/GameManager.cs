@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public int RingNum = 20;
     
     private Canon[] canons;
+    private Player pcPlayer;
     private Player[] players;
 
     [SerializeField] private GameObject iconPrefab;
@@ -42,12 +43,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("canon: " + canon.id);
         }
 
+        pcPlayer = new Player(9, iconPrefab, iconParents);
+
         var numPlayer = CommonInfoManager.NUM_PLAYER;
         if (numPlayer == 0) {
             numPlayer = 10;
         }
-        players = new Player[numPlayer];
-        for (int i = 0; i < numPlayer; i++) {
+        players = new Player[numPlayer-1];
+        for (int i = 0; i < numPlayer-1; i++) {
             players[i] = new Player(i, iconPrefab, iconParents);
             Debug.Log("player: " + players[i].GetPlayerId());
         }
@@ -125,23 +128,23 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (!players[0].GetTurretState()) {  
-                players[0].switchTurretNumber(1);
+            if (!pcPlayer.GetTurretState()) {
+                pcPlayer.switchTurretNumber(1);
                 Debug.Log("→キーが押されました。");
             }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            if (!players[0].GetTurretState()) {
-                players[0].switchTurretNumber(-1);
+            if (!pcPlayer.GetTurretState()) {
+                pcPlayer.switchTurretNumber(-1);
                 Debug.Log("←キーが押されました。");
             }
         }
         if (Input.GetKeyDown(KeyCode.Space)) {
-            handleButtonPressed(0, true);
+            handleButtonPressed(true);
             Debug.Log("スペースキーが押されました。");
         }
         if (Input.GetKeyUp(KeyCode.Space)) {
-            handleButtonPressed(0, false);
+            handleButtonPressed(false);
             Debug.Log("スペースキーが離されました。");
         }
         float remainingTime = getRemainingTime();
@@ -191,6 +194,23 @@ public class GameManager : MonoBehaviour
                 scoreText.transform.DOScale(1f, 0.2f)
                     .SetEase(Ease.InQuad);
             });
+    }
+
+    public void handleButtonPressed(bool isPressed)
+    {
+        var previousState = pcPlayer.GetTurretState();
+        if (previousState == isPressed) { return; }
+        Debug.Log("handleButtonPressed: " + 9 + " " + isPressed);
+        pcPlayer.setTurretState(isPressed);
+        var canonId = pcPlayer.GetCurrentTurretNumber();
+        if (isPressed)
+        {
+            canons[canonId].addPower(Vector3.up * fluidPower);
+        }
+        else
+        {
+            canons[canonId].addPower(-Vector3.up * fluidPower);
+        }
     }
 
     public void handleButtonPressed(int playerId, bool isPressed) {

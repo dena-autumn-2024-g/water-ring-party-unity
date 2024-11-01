@@ -33,6 +33,7 @@ public class WaterRingStreamClient
             var gRPCClient = new RoomService.RoomServiceClient(channel);
 
             var createRoomRequest = new CreateRoomRequest();
+            createRoomRequest.UserLimit = 9;
             CreateRoomResponse response = await gRPCClient.CreateRoomAsync(createRoomRequest);
             return response;
         }

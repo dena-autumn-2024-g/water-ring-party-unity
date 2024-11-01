@@ -32,7 +32,7 @@ public class HomeWindow : Window
 
             CommonInfoManager.ROOM_ID = response?.RoomId;
             CommonInfoManager.ROOM_URL = response?.RoomUrl;
-            CommonInfoManager.NUM_PLAYER = 0;
+            CommonInfoManager.NUM_PLAYER = 1;
 
             _windowManager.ParticipantRegistrationWindow.OpenRoom();
 

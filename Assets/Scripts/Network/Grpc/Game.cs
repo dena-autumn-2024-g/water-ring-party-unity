@@ -25,35 +25,36 @@ namespace WaterRing {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CgpnYW1lLnByb3RvEgp3YXRlcl9yaW5nIikKFlN0YXJ0R2FtZVN0cmVhbVJl",
-            "cXVlc3QSDwoHcm9vbV9pZBgBIAEoCSIkChFQdXNoQnV0dG9uUmVxdWVzdBIP",
-            "Cgd1c2VyX2lkGAEgASgFIhQKElB1c2hCdXR0b25SZXNwb25zZSInChRSZWxl",
-            "YXNlQnV0dG9uUmVxdWVzdBIPCgd1c2VyX2lkGAEgASgFIhcKFVJlbGVhc2VC",
-            "dXR0b25SZXNwb25zZSJICgtNb3ZlUmVxdWVzdBIPCgd1c2VyX2lkGAEgASgF",
-            "EigKCWRpcmVjdGlvbhgCIAEoDjIVLndhdGVyX3JpbmcuRGlyZWN0aW9uIg4K",
-            "DE1vdmVSZXNwb25zZSLSAQoXU3RhcnRHYW1lU3RyZWFtUmVzcG9uc2USPAoT",
-            "cHVzaF9idXR0b25fcHJlc3NlZBgBIAEoCzIdLndhdGVyX3JpbmcuUHVzaEJ1",
-            "dHRvblJlcXVlc3RIABJAChRwdXNoX2J1dHRvbl9yZWxlYXNlZBgCIAEoCzIg",
-            "LndhdGVyX3JpbmcuUmVsZWFzZUJ1dHRvblJlcXVlc3RIABIuCgttb3ZlX2J1",
-            "dHRvbhgDIAEoCzIXLndhdGVyX3JpbmcuTW92ZVJlcXVlc3RIAEIHCgVldmVu",
-            "dCpPCglEaXJlY3Rpb24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVEEAASEgoO",
-            "RElSRUNUSU9OX0xFRlQQARITCg9ESVJFQ1RJT05fUklHSFQQAjLJAgoLR2Ft",
-            "ZVNlcnZpY2USXAoPU3RhcnRHYW1lU3RyZWFtEiIud2F0ZXJfcmluZy5TdGFy",
-            "dEdhbWVTdHJlYW1SZXF1ZXN0GiMud2F0ZXJfcmluZy5TdGFydEdhbWVTdHJl",
-            "YW1SZXNwb25zZTABEjkKBE1vdmUSFy53YXRlcl9yaW5nLk1vdmVSZXF1ZXN0",
-            "Ghgud2F0ZXJfcmluZy5Nb3ZlUmVzcG9uc2USSwoKUHVzaEJ1dHRvbhIdLndh",
-            "dGVyX3JpbmcuUHVzaEJ1dHRvblJlcXVlc3QaHi53YXRlcl9yaW5nLlB1c2hC",
-            "dXR0b25SZXNwb25zZRJUCg1SZWxlYXNlQnV0dG9uEiAud2F0ZXJfcmluZy5S",
-            "ZWxlYXNlQnV0dG9uUmVxdWVzdBohLndhdGVyX3JpbmcuUmVsZWFzZUJ1dHRv",
-            "blJlc3BvbnNlYgZwcm90bzM="));
+            "cXVlc3QSDwoHcm9vbV9pZBgBIAEoCSI1ChFQdXNoQnV0dG9uUmVxdWVzdBIP",
+            "Cgd1c2VyX2lkGAEgASgFEg8KB3Jvb21faWQYAiABKAkiFAoSUHVzaEJ1dHRv",
+            "blJlc3BvbnNlIjgKFFJlbGVhc2VCdXR0b25SZXF1ZXN0Eg8KB3VzZXJfaWQY",
+            "ASABKAUSDwoHcm9vbV9pZBgCIAEoCSIXChVSZWxlYXNlQnV0dG9uUmVzcG9u",
+            "c2UiWQoLTW92ZVJlcXVlc3QSDwoHdXNlcl9pZBgBIAEoBRIoCglkaXJlY3Rp",
+            "b24YAiABKA4yFS53YXRlcl9yaW5nLkRpcmVjdGlvbhIPCgdyb29tX2lkGAMg",
+            "ASgJIg4KDE1vdmVSZXNwb25zZSLSAQoXU3RhcnRHYW1lU3RyZWFtUmVzcG9u",
+            "c2USPAoTcHVzaF9idXR0b25fcHJlc3NlZBgBIAEoCzIdLndhdGVyX3Jpbmcu",
+            "UHVzaEJ1dHRvblJlcXVlc3RIABJAChRwdXNoX2J1dHRvbl9yZWxlYXNlZBgC",
+            "IAEoCzIgLndhdGVyX3JpbmcuUmVsZWFzZUJ1dHRvblJlcXVlc3RIABIuCgtt",
+            "b3ZlX2J1dHRvbhgDIAEoCzIXLndhdGVyX3JpbmcuTW92ZVJlcXVlc3RIAEIH",
+            "CgVldmVudCpPCglEaXJlY3Rpb24SGQoVRElSRUNUSU9OX1VOU1BFQ0lGSUVE",
+            "EAASEgoORElSRUNUSU9OX0xFRlQQARITCg9ESVJFQ1RJT05fUklHSFQQAjLJ",
+            "AgoLR2FtZVNlcnZpY2USXAoPU3RhcnRHYW1lU3RyZWFtEiIud2F0ZXJfcmlu",
+            "Zy5TdGFydEdhbWVTdHJlYW1SZXF1ZXN0GiMud2F0ZXJfcmluZy5TdGFydEdh",
+            "bWVTdHJlYW1SZXNwb25zZTABEjkKBE1vdmUSFy53YXRlcl9yaW5nLk1vdmVS",
+            "ZXF1ZXN0Ghgud2F0ZXJfcmluZy5Nb3ZlUmVzcG9uc2USSwoKUHVzaEJ1dHRv",
+            "bhIdLndhdGVyX3JpbmcuUHVzaEJ1dHRvblJlcXVlc3QaHi53YXRlcl9yaW5n",
+            "LlB1c2hCdXR0b25SZXNwb25zZRJUCg1SZWxlYXNlQnV0dG9uEiAud2F0ZXJf",
+            "cmluZy5SZWxlYXNlQnV0dG9uUmVxdWVzdBohLndhdGVyX3JpbmcuUmVsZWFz",
+            "ZUJ1dHRvblJlc3BvbnNlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::WaterRing.Direction), }, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.StartGameStreamRequest), global::WaterRing.StartGameStreamRequest.Parser, new[]{ "RoomId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.PushButtonRequest), global::WaterRing.PushButtonRequest.Parser, new[]{ "UserId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.PushButtonRequest), global::WaterRing.PushButtonRequest.Parser, new[]{ "UserId", "RoomId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.PushButtonResponse), global::WaterRing.PushButtonResponse.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.ReleaseButtonRequest), global::WaterRing.ReleaseButtonRequest.Parser, new[]{ "UserId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.ReleaseButtonRequest), global::WaterRing.ReleaseButtonRequest.Parser, new[]{ "UserId", "RoomId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.ReleaseButtonResponse), global::WaterRing.ReleaseButtonResponse.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.MoveRequest), global::WaterRing.MoveRequest.Parser, new[]{ "UserId", "Direction" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.MoveRequest), global::WaterRing.MoveRequest.Parser, new[]{ "UserId", "Direction", "RoomId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.MoveResponse), global::WaterRing.MoveResponse.Parser, null, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::WaterRing.StartGameStreamResponse), global::WaterRing.StartGameStreamResponse.Parser, new[]{ "PushButtonPressed", "PushButtonReleased", "MoveButton" }, new[]{ "Event" }, null, null, null)
           }));
@@ -317,6 +318,7 @@ namespace WaterRing {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public PushButtonRequest(PushButtonRequest other) : this() {
       userId_ = other.userId_;
+      roomId_ = other.roomId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -341,6 +343,21 @@ namespace WaterRing {
       }
     }
 
+    /// <summary>Field number for the "room_id" field.</summary>
+    public const int RoomIdFieldNumber = 2;
+    private string roomId_ = "";
+    /// <summary>
+    /// ルームID
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomId {
+      get { return roomId_; }
+      set {
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -357,6 +374,7 @@ namespace WaterRing {
         return true;
       }
       if (UserId != other.UserId) return false;
+      if (RoomId != other.RoomId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -365,6 +383,7 @@ namespace WaterRing {
     public override int GetHashCode() {
       int hash = 1;
       if (UserId != 0) hash ^= UserId.GetHashCode();
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -387,6 +406,10 @@ namespace WaterRing {
         output.WriteRawTag(8);
         output.WriteInt32(UserId);
       }
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RoomId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -401,6 +424,10 @@ namespace WaterRing {
         output.WriteRawTag(8);
         output.WriteInt32(UserId);
       }
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RoomId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -413,6 +440,9 @@ namespace WaterRing {
       int size = 0;
       if (UserId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(UserId);
+      }
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -428,6 +458,9 @@ namespace WaterRing {
       }
       if (other.UserId != 0) {
         UserId = other.UserId;
+      }
+      if (other.RoomId.Length != 0) {
+        RoomId = other.RoomId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -452,6 +485,10 @@ namespace WaterRing {
             UserId = input.ReadInt32();
             break;
           }
+          case 18: {
+            RoomId = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -473,6 +510,10 @@ namespace WaterRing {
             break;
           case 8: {
             UserId = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            RoomId = input.ReadString();
             break;
           }
         }
@@ -682,6 +723,7 @@ namespace WaterRing {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ReleaseButtonRequest(ReleaseButtonRequest other) : this() {
       userId_ = other.userId_;
+      roomId_ = other.roomId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -706,6 +748,21 @@ namespace WaterRing {
       }
     }
 
+    /// <summary>Field number for the "room_id" field.</summary>
+    public const int RoomIdFieldNumber = 2;
+    private string roomId_ = "";
+    /// <summary>
+    /// ルームID
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomId {
+      get { return roomId_; }
+      set {
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -722,6 +779,7 @@ namespace WaterRing {
         return true;
       }
       if (UserId != other.UserId) return false;
+      if (RoomId != other.RoomId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -730,6 +788,7 @@ namespace WaterRing {
     public override int GetHashCode() {
       int hash = 1;
       if (UserId != 0) hash ^= UserId.GetHashCode();
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -752,6 +811,10 @@ namespace WaterRing {
         output.WriteRawTag(8);
         output.WriteInt32(UserId);
       }
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RoomId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -766,6 +829,10 @@ namespace WaterRing {
         output.WriteRawTag(8);
         output.WriteInt32(UserId);
       }
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(RoomId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -778,6 +845,9 @@ namespace WaterRing {
       int size = 0;
       if (UserId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(UserId);
+      }
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -793,6 +863,9 @@ namespace WaterRing {
       }
       if (other.UserId != 0) {
         UserId = other.UserId;
+      }
+      if (other.RoomId.Length != 0) {
+        RoomId = other.RoomId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -817,6 +890,10 @@ namespace WaterRing {
             UserId = input.ReadInt32();
             break;
           }
+          case 18: {
+            RoomId = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -838,6 +915,10 @@ namespace WaterRing {
             break;
           case 8: {
             UserId = input.ReadInt32();
+            break;
+          }
+          case 18: {
+            RoomId = input.ReadString();
             break;
           }
         }
@@ -1048,6 +1129,7 @@ namespace WaterRing {
     public MoveRequest(MoveRequest other) : this() {
       userId_ = other.userId_;
       direction_ = other.direction_;
+      roomId_ = other.roomId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1087,6 +1169,21 @@ namespace WaterRing {
       }
     }
 
+    /// <summary>Field number for the "room_id" field.</summary>
+    public const int RoomIdFieldNumber = 3;
+    private string roomId_ = "";
+    /// <summary>
+    /// ルームID
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string RoomId {
+      get { return roomId_; }
+      set {
+        roomId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1104,6 +1201,7 @@ namespace WaterRing {
       }
       if (UserId != other.UserId) return false;
       if (Direction != other.Direction) return false;
+      if (RoomId != other.RoomId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1113,6 +1211,7 @@ namespace WaterRing {
       int hash = 1;
       if (UserId != 0) hash ^= UserId.GetHashCode();
       if (Direction != global::WaterRing.Direction.Unspecified) hash ^= Direction.GetHashCode();
+      if (RoomId.Length != 0) hash ^= RoomId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1139,6 +1238,10 @@ namespace WaterRing {
         output.WriteRawTag(16);
         output.WriteEnum((int) Direction);
       }
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(RoomId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1157,6 +1260,10 @@ namespace WaterRing {
         output.WriteRawTag(16);
         output.WriteEnum((int) Direction);
       }
+      if (RoomId.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(RoomId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1172,6 +1279,9 @@ namespace WaterRing {
       }
       if (Direction != global::WaterRing.Direction.Unspecified) {
         size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) Direction);
+      }
+      if (RoomId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RoomId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1190,6 +1300,9 @@ namespace WaterRing {
       }
       if (other.Direction != global::WaterRing.Direction.Unspecified) {
         Direction = other.Direction;
+      }
+      if (other.RoomId.Length != 0) {
+        RoomId = other.RoomId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1218,6 +1331,10 @@ namespace WaterRing {
             Direction = (global::WaterRing.Direction) input.ReadEnum();
             break;
           }
+          case 26: {
+            RoomId = input.ReadString();
+            break;
+          }
         }
       }
     #endif
@@ -1243,6 +1360,10 @@ namespace WaterRing {
           }
           case 16: {
             Direction = (global::WaterRing.Direction) input.ReadEnum();
+            break;
+          }
+          case 26: {
+            RoomId = input.ReadString();
             break;
           }
         }
