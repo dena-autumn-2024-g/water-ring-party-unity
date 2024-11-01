@@ -1388,6 +1388,17 @@ MonoBehaviour:
     _usePolygonMap: 0
   wasConverted: 0
   preConvertedScale: {x: 0, y: 0, z: 0}
+--- !u!114 &910239082 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8774298916766755655, guid: f316c2abf01337f469dd0f6b9b31d225, type: 3}
+  m_PrefabInstance: {fileID: 1116767359}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910239079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef32a52d6712a7408e8256453bd9331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!21 &1009808861
 Material:
   serializedVersion: 8
@@ -1631,7 +1642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4122302210329645141, guid: f316c2abf01337f469dd0f6b9b31d225, type: 3}
       propertyPath: m_Name
-      value: BaseButton
+      value: UserResetButton
       objectReference: {fileID: 0}
     - target: {fileID: 6560963784538445704, guid: f316c2abf01337f469dd0f6b9b31d225, type: 3}
       propertyPath: m_Type
@@ -2463,6 +2474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startGameButton: {fileID: 1816861418}
+  _userResetButton: {fileID: 910239082}
   _qRcodePanel: {fileID: 9205328883845440331}
   _qRErrorText: {fileID: 1065014382}
   _userCounter: {fileID: 1632248743}

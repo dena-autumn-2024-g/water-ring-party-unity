@@ -12,6 +12,9 @@ public class ParticipantRegistrationWindow : Window
     private StartGameButton _startGameButton;
 
     [SerializeField]
+    private BaseButton _userResetButton;
+
+    [SerializeField]
     private QRcodePanel _qRcodePanel;
     [SerializeField]
     private TextMeshProUGUI _qRErrorText;
@@ -27,6 +30,19 @@ public class ParticipantRegistrationWindow : Window
             CommonInfoManager.CLIENT?.StopStream();
             // ƒV[ƒ“ˆÚ“® + client.StartGame
             SceneManager.LoadScene("SampleScene");
+        });
+
+        _userResetButton.Observable.Subscribe(async (_) =>
+        {
+            CommonInfoManager.CLIENT?.StopStream();
+            await CommonInfoManager.CLIENT.CloseRoomAsync(CommonInfoManager.ROOM_ID);
+
+            CommonInfoManager.CLIENT = new();
+            CreateRoomResponse response = await CommonInfoManager.CLIENT.CreateRoomAsync();
+            CommonInfoManager.ROOM_ID = response.RoomId;
+            CommonInfoManager.ROOM_URL = response.RoomUrl;
+            CommonInfoManager.NUM_PLAYER = 0;
+            OpenRoom();
         });
 
         if (CommonInfoManager.END_GAME)
