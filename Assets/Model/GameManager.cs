@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private Canon[] canons;
     private Player pcPlayer;
     private Player[] players;
+    private float fixedFluidPower;
 
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Transform[] iconParents;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text ringSumText;
 
     [SerializeField] private float fluidPower = 0.1f;
+    [SerializeField] private float singleFluidPower = 2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +46,15 @@ public class GameManager : MonoBehaviour
         }
 
         pcPlayer = new Player(9, iconPrefab, iconParents);
+        fixedFluidPower = fluidPower;
 
         var numPlayer = CommonInfoManager.NUM_PLAYER;
         if (numPlayer == 0) {
             numPlayer = 10;
+        }
+        if (CommonInfoManager.NUM_PLAYER == 1)
+        {
+            fixedFluidPower = fluidPower * singleFluidPower;
         }
         players = new Player[numPlayer-1];
         for (int i = 0; i < numPlayer-1; i++) {
@@ -205,11 +212,11 @@ public class GameManager : MonoBehaviour
         var canonId = pcPlayer.GetCurrentTurretNumber();
         if (isPressed)
         {
-            canons[canonId].addPower(Vector3.up * fluidPower);
+            canons[canonId].addPower(Vector3.up * fixedFluidPower);
         }
         else
         {
-            canons[canonId].addPower(-Vector3.up * fluidPower);
+            canons[canonId].addPower(-Vector3.up * fixedFluidPower);
         }
     }
 
@@ -220,9 +227,9 @@ public class GameManager : MonoBehaviour
         players[playerId].setTurretState(isPressed);
         var canonId = players[playerId].GetCurrentTurretNumber();
         if (isPressed) {
-            canons[canonId].addPower(Vector3.up * fluidPower);
+            canons[canonId].addPower(Vector3.up * fixedFluidPower);
         } else {
-            canons[canonId].addPower(-Vector3.up * fluidPower);
+            canons[canonId].addPower(-Vector3.up * fixedFluidPower);
         }
     }
 
