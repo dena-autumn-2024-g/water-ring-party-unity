@@ -22,6 +22,9 @@ public class ParticipantRegistrationWindow : Window
     [SerializeField]
     private UserCounter _userCounter;
 
+    [SerializeField]
+    private AudioSource _joinAudioSource;
+
     public void Awake()
     {
         CommonInfoManager.CLIENT = new();
@@ -78,6 +81,7 @@ public class ParticipantRegistrationWindow : Window
     {
         Debug.Log($"ユーザーが参加しました。ユーザーID: {response.UserId}");
         CommonInfoManager.NUM_PLAYER++;
+        _joinAudioSource.Play();
 
         _startGameButton.SetInteractable(true);
         Debug.Log($"プレイヤー数: {CommonInfoManager.NUM_PLAYER}");
