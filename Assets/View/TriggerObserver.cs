@@ -6,22 +6,22 @@ using System;
 public class TriggerObserver : MonoBehaviour
 {
     private bool isEnter = false;
-    public event Action<bool> OnTriggerStateChanged;
+    public event Action<bool, Collider> OnTriggerStateChanged;
 
-    public void SetTriggerState(bool value)
+    public void SetTriggerState(bool value, Collider other)
     {
         isEnter = value;
-        OnTriggerStateChanged?.Invoke(isEnter);
+        OnTriggerStateChanged?.Invoke(isEnter, other);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        SetTriggerState(true);
+        SetTriggerState(true, other);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        SetTriggerState(false);
+        SetTriggerState(false, other);
     }
 
     public bool GetIsEnter()

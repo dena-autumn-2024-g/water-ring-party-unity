@@ -10,9 +10,22 @@ public class ringController : MonoBehaviour
 
     public GameObject child1;
     public GameObject child2;
+
+    public int TeamId { get; private set; }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    public void SetTeamId(int teamId)
+    {
+        TeamId = teamId;
+        Renderer renderer = gameObject.GetComponent<Renderer>();
+        renderer.material.color = IconColor.Colors[teamId];
+        // エミッションの設定
+        renderer.material.EnableKeyword("_EMISSION");
+        renderer.material.SetColor("_EmissionColor", IconColor.Colors[teamId] * 0.8f);
     }
     
     void FixedUpdate()

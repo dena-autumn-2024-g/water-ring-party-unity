@@ -9,8 +9,8 @@ public class RingScoreWindow : MonoBehaviour
 
     void Start()
     {
-        int score = CommonInfoManager.SCORE_RING_COUNT;
-        scoreText.text = (score/10).ToString() + " 個";
+        //int score = CommonInfoManager.SCORE_RING_COUNT;
+        //scoreText.text = (score/10).ToString() + " 個";
     }
 
 }

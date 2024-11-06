@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] poleObjects;
     public FluidSimulation fluidSimulation;
 
+    public int RingNumPerTeam = 5;
     public float limitTime = 300;
-    public int RingNum = 20;
     
     private Canon[] canons;
     private Player[] players;
@@ -71,9 +71,12 @@ public class GameManager : MonoBehaviour
 
     public void OnGameFinished()
     {   // 時間切れで終了
-        CommonInfoManager.SCORE_LEFT_TIME = 0;
-        CommonInfoManager.SCORE_RING_COUNT = score.GetCurrentScore();
-        CommonInfoManager.SCORE_POINT = score.GetCurrentScore() + CommonInfoManager.SCORE_LEFT_TIME;
+        int[] scores = new int[CommonInfoManager.NUM_PLAYER];
+        for (int i = 0; i < CommonInfoManager.NUM_PLAYER; i++)
+        {
+            scores[i] = score.TeamScores[i];
+        }
+        CommonInfoManager.SCORE_RING_COUNT = scores;
 
         SceneManager.LoadScene("Score");
     }
@@ -116,11 +119,6 @@ public class GameManager : MonoBehaviour
             {
                 OnGameFinished();
             }
-
-            if (score.GetCurrentScore() == 200)
-            {
-                OnGameFinished();
-            }
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -154,8 +152,8 @@ public class GameManager : MonoBehaviour
             fluidSimulation.powers[i] = canons[i].power;
         }
 
-        // スコアを表示
-        int nowRingCount = score.GetCurrentScore() / 10;
+        // スコアを表示 0番プレイヤーのスコア表示テストコード
+        int nowRingCount = score.GetCurrentScore(0) / 10;
         if (_prevRingCount < nowRingCount)
         {
             IncreaseScoreText(nowRingCount);
@@ -172,7 +170,7 @@ public class GameManager : MonoBehaviour
     private void DecreaseScoreCount(int count)
     {
         scoreText.text = $"{count} ";
-        ringSumText.text = "/ " + RingNum.ToString();
+        //ringSumText.text = "/ " + RingNum.ToString();
     }
 
     private void IncreaseScoreText(int count)
@@ -181,7 +179,7 @@ public class GameManager : MonoBehaviour
         scoreText.transform.DOKill();
 
         scoreText.text = $"{count} ";
-        ringSumText.text = "/ " + RingNum.ToString();
+        //ringSumText.text = "/ " + RingNum.ToString();
 
         scoreText.transform.localScale = Vector3.one;
         scoreText.transform.DOScale(1.5f, 0.2f)
@@ -211,55 +209,44 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void OnTriggerStateChanged(bool isEnter)
+    void OnTriggerStateChanged(bool isEnter, Collider other)
     {
+        int teamId = other.GetComponent<ringController>().TeamId;
         if (isEnter)
         {
-            score.AddPoints(10);
+            score.AddPoints(1, teamId);
             Debug.Log(score.ToString());
         }
         else
         {
-            score.AddPoints(-10);
+            score.AddPoints(-1, teamId);
             Debug.Log(score.ToString());
         }
     }
 
     private IEnumerator SpawnRingsCoroutine()
     {
-        for (int i = 0; i < 20; i++)
+        for (int j = 0; j < CommonInfoManager.NUM_PLAYER; j++)
         {
-            var prefab = Instantiate(ringPrefab);
-            prefab.GetComponent<ringController>().fluidSimulation = fluidSimulation;
-            
-            // x座標を-22から22までランダムに配置
-            float randomX = Random.Range(-22f, 22f);
-            prefab.transform.position = new Vector3(randomX, prefab.transform.position.y, prefab.transform.position.z);
-            
-            // プレハブのマテリアルの色をランダムに設定
-            Renderer renderer = prefab.GetComponent<Renderer>();
-            Debug.Log(renderer);
-            if (renderer != null)
+            for (int i = 0; i < RingNumPerTeam; i++)
             {
-                Material material = renderer.material;
-                Color[] colors = new Color[]
+                var prefab = Instantiate(ringPrefab);
+                prefab.GetComponent<ringController>().fluidSimulation = fluidSimulation;
+
+                // x座標を-22から22までランダムに配置
+                float randomX = Random.Range(-22f, 22f);
+                prefab.transform.position = new Vector3(randomX, prefab.transform.position.y, prefab.transform.position.z);
+
+                // プレハブのマテリアルの色をランダムに設定
+                Renderer renderer = prefab.GetComponent<Renderer>();
+                ringController ringController = prefab.GetComponent<ringController>();
+                if (ringController != null)
                 {
-                    new Color(0.043f, 0.478f, 0.816f),
-                    new Color(1f, 0.094f, 0.094f),
-                    new Color(0.071f, 0.694f, 0f),
-                    new Color(1f, 0.922f, 0.231f),
-                    new Color(0.612f, 0.157f, 0.690f)
-                };
-                int colorIndex = i % colors.Length;
-                Color selectedColor = colors[colorIndex];
-                material.color = selectedColor;
-                
-                // エミッションの設定
-                material.EnableKeyword("_EMISSION");
-                material.SetColor("_EmissionColor", selectedColor * 0.8f);
+                    ringController.SetTeamId(j);
+                }
+
+                yield return new WaitForSeconds(0.1f);
             }
-            
-            yield return new WaitForSeconds(0.1f);
         }
     }
 }

@@ -10,7 +10,5 @@ public static class CommonInfoManager
 
     // スコアがここに格納される
     public static bool END_GAME = false;
-    public static int SCORE_LEFT_TIME;
-    public static int SCORE_RING_COUNT;
-    public static int SCORE_POINT;
+    public static int[] SCORE_RING_COUNT;
 }

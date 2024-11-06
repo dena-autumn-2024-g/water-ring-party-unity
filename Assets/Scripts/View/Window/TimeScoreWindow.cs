@@ -9,8 +9,8 @@ public class TimeScoreWindow : MonoBehaviour
 
     void Start()
     {
-        int score = CommonInfoManager.SCORE_LEFT_TIME;
-        scoreText.text = score.ToString() + " 秒";
+        //int score = CommonInfoManager.SCORE_LEFT_TIME;
+        //scoreText.text = score.ToString() + " 秒";
     }
 
 }

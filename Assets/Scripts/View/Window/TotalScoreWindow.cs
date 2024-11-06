@@ -9,8 +9,8 @@ public class TotalScoreWindow : MonoBehaviour
 
     void Start()
     {
-        int score = CommonInfoManager.SCORE_POINT;
-        scoreText.text = score.ToString() + "点!";
+        //int score = CommonInfoManager.SCORE_RING_COUNT;
+        //scoreText.text = score.ToString() + "点!";
     }
 
 }

@@ -1,31 +1,28 @@
 using System;
+using System.Collections.Generic;
 
 public class Score
 {
-    private int currentScore;
+    private List<int> _teamScores;
+    public IReadOnlyList<int> TeamScores { get { return _teamScores; } }
 
     public Score()
     {
-        currentScore = 0;
+        _teamScores = new List<int>();
+        for(int i = 0; i < CommonInfoManager.NUM_PLAYER; i++)
+        {
+            _teamScores.Add(0);
+        }
     }
 
-    public void AddPoints(int points)
+    public void AddPoints(int points, int teamId)
     {
-        currentScore += points;
-    }
-    public void ResetScore()
-    {
-        currentScore = 0;
+        _teamScores[teamId] += points;
     }
 
-    public int GetCurrentScore()
+    public int GetCurrentScore(int teamId)
     {
-        return currentScore;
-    }
-
-    public override string ToString()
-    {
-        return $"現在のスコア: {currentScore}";
+        return TeamScores[teamId];
     }
 }
 

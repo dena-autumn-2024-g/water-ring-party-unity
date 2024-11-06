@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class IconColor : MonoBehaviour
 {
     public int colorId;
+    public static IReadOnlyList<Color> Colors { get { return colors; } }
     private static readonly Color[] colors = new Color[]
     {
         // Hexで色を指定
