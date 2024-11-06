@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ringController : MonoBehaviour
+public class RingController : MonoBehaviour
 {
     public FluidSimulation fluidSimulation;
     [SerializeField] private float forceMultiplier = 100000f; // 力の倍率を調整するパラメータ
