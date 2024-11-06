@@ -22,9 +22,8 @@ public class CommonInfoInitializer : MonoBehaviour
     {
         CommonInfoManager.ROOM_ID = "";
         CommonInfoManager.NUM_PLAYER = 0;
-        //CommonInfoManager.SCORE_LEFT_TIME = 0;
         CommonInfoManager.SCORE_RING_COUNT = new int[10];
-        //CommonInfoManager.SCORE_POINT = 0;
         CommonInfoManager.END_GAME = false;
+        PollRingResultModelController.CONTROLLER_NUM = 0;
     }
 }

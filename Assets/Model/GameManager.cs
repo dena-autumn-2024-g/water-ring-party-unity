@@ -222,11 +222,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private async Task SpawnRingsAsync(int ringNumPerTeam)
+    private async Task SpawnRingsAsync(int ringNumPerPlayer)
     {
         for (int j = 0; j < CommonInfoManager.NUM_PLAYER; j++)
         {
-            for (int i = 0; i < ringNumPerTeam; i++)
+            for (int i = 0; i < ringNumPerPlayer; i++)
             {
                 var prefab = Instantiate(ringPrefab);
                 prefab.GetComponent<RingController>().fluidSimulation = fluidSimulation;
@@ -240,7 +240,7 @@ public class GameManager : MonoBehaviour
                 RingController ringController = prefab.GetComponent<RingController>();
                 if (ringController != null)
                 {
-                    ringController.SetTeamId(j);
+                    ringController.SetPlayerId(j);
                 }
 
                 await Task.Delay(100); // 100ミリ秒待機

@@ -18,14 +18,14 @@ public class RingController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public void SetTeamId(int teamId)
+    public void SetPlayerId(int playerId)
     {
-        TeamId = teamId;
+        TeamId = playerId;
         Renderer renderer = gameObject.GetComponent<Renderer>();
-        renderer.material.color = IconColor.Colors[teamId];
+        renderer.material.color = IconColor.Colors[playerId];
         // エミッションの設定
         renderer.material.EnableKeyword("_EMISSION");
-        renderer.material.SetColor("_EmissionColor", IconColor.Colors[teamId] * 0.8f);
+        renderer.material.SetColor("_EmissionColor", IconColor.Colors[playerId] * 0.8f);
     }
     
     void FixedUpdate()
@@ -34,6 +34,9 @@ public class RingController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
         var pos1 = child1.transform.position;
         var pos2 = child2.transform.position;
+
+        if (fluidSimulation == null) return;
+
         // 現在位置を計算用座標系に変換
         var inputVector1 = fluidSimulation.TransformPositionToCalculationVector3(pos1);
         var inputVector2 = fluidSimulation.TransformPositionToCalculationVector3(pos2);

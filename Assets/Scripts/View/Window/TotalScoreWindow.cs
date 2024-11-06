@@ -1,11 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class TotalScoreWindow : MonoBehaviour
 {
     // Text コンポーネントの参照
     public TextMeshProUGUI scoreText;
+    [SerializeField]
+    private TextMeshProUGUI _winnerText;
+
+    [SerializeField]
+    private GameObject _playerResultPrefab;
 
     void Start()
     {
@@ -29,7 +35,7 @@ public class TotalScoreWindow : MonoBehaviour
         }
 
         string displayText = "";
-        bool isDraw = winnerList.Count === CommonInfoManager.NUM_PLAYER || winnerList.Count === 0;
+        bool isDraw = winnerList.Count == CommonInfoManager.NUM_PLAYER || winnerList.Count == 0;
 
         if (isDraw)
         {
@@ -50,5 +56,6 @@ public class TotalScoreWindow : MonoBehaviour
 
         scoreText.text = displayText;
     }
+
 
 }
