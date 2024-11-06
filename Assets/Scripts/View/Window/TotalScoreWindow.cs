@@ -15,7 +15,7 @@ public class TotalScoreWindow : MonoBehaviour
 
     void Start()
     {
-        int[] scores = CommonInfoManager.SCORE_RING_COUNT;
+        /*int[] scores = CommonInfoManager.SCORE_RING_COUNT;
         int maxScore = 0;
         // 優勝者のindexのリスト
         List<int> winnerList = new List<int>();
@@ -54,7 +54,7 @@ public class TotalScoreWindow : MonoBehaviour
             }
         }
 
-        scoreText.text = displayText;
+        scoreText.text = displayText;*/
     }
 
 

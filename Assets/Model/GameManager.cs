@@ -27,13 +27,16 @@ public class GameManager : MonoBehaviour
     private Player[] players;
 
     [SerializeField] private GameObject iconPrefab;
+    [SerializeField] private SlideInPanel slideInPanel;
     [SerializeField] private Transform[] iconParents;
     [SerializeField] private Text timerText;
+    [SerializeField] private AudioSource pointAudioSource;
+    [SerializeField] private AudioSource addRingAudioSource;
 
     [SerializeField] private float fluidPower = 0.1f;
 
     private GameCycle _gameCycle;
-    private float _limitTime = 70; //秒
+    private float _limitTime = 180; //秒
     private int _addRingCycleFirstTime = 60; //秒
     private int _addRingSecondCycleTime = 45; //秒
 
@@ -121,6 +124,8 @@ public class GameManager : MonoBehaviour
 
     private void AddRingFirstAction()
     {
+        addRingAudioSource.Play();
+        slideInPanel.SlideIn();
         _ = SpawnRingsAsync(3);
     }
 
@@ -212,6 +217,7 @@ public class GameManager : MonoBehaviour
         int teamId = ringController.TeamId;
         if (isEnter)
         {
+            pointAudioSource.Play();
             score.AddPoints(1, teamId);
             Debug.Log($"Player: {teamId}, +1点, 計 {score.TeamScores[teamId]}点");
         }
