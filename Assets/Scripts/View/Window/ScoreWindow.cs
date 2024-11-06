@@ -20,6 +20,9 @@ public class ScoreWindow : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _winnerText;
 
+    [SerializeField]
+    private AudioSource _showWinnderAudioSource;
+
     private List<PlayerResultPanel> _playerResultPanels;
 
     public async void Awake()
@@ -48,6 +51,7 @@ public class ScoreWindow : MonoBehaviour
         }
 
         SetWinnerText();
+        _showWinnderAudioSource.Play();
         _winnerText.transform.DOScale(1.2f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad);
 
         await Task.Delay(500);
