@@ -27,7 +27,10 @@ public class ScoreWindow : MonoBehaviour
 
     public async void Awake()
     {
+        CommonInfoManager.NUM_PLAYER = 3;
+        CommonInfoManager.SCORE_RING_COUNT = new int[3] { 1, 1, 2 };
         Init();
+        SetWinnerText();
 
         await Task.Delay(1000);
 
