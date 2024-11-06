@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     private Player[] players;
 
     [SerializeField] private GameObject iconPrefab;
+    [SerializeField] private SlideInPanel slideInPanel;
     [SerializeField] private Transform[] iconParents;
     [SerializeField] private Text timerText;
 
@@ -121,6 +122,7 @@ public class GameManager : MonoBehaviour
 
     private void AddRingFirstAction()
     {
+        slideInPanel.SlideIn();
         _ = SpawnRingsAsync(3);
     }
 
