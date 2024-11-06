@@ -11,6 +11,7 @@ public enum GameCycle
     Normal,
     AddRingFirst,
     AddRingSecond,
+    BeforeFinish,
 }
 
 public class GameManager : MonoBehaviour
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text timerText;
     [SerializeField] private AudioSource pointAudioSource;
     [SerializeField] private AudioSource addRingAudioSource;
+    [SerializeField] private AudioSource finishAudioSource;
 
     [SerializeField] private float fluidPower = 0.1f;
 
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
     private float _limitTime = 180; //秒
     private int _addRingCycleFirstTime = 60; //秒
     private int _addRingSecondCycleTime = 45; //秒
+    private int _finishGameTime = 1; //秒
 
     // Start is called before the first frame update
     void Start()
@@ -134,6 +137,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void BeforeFinishGame()
+    {
+        finishAudioSource.Play();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -149,6 +157,11 @@ public class GameManager : MonoBehaviour
             {
                 _gameCycle = GameCycle.AddRingSecond;
                 AddRingSecondAction();
+            }
+            else if (_gameCycle == GameCycle.AddRingSecond && time <= _finishGameTime)
+            {
+                _gameCycle = GameCycle.BeforeFinish;
+                BeforeFinishGame();
             }
             else if (time <= 0)
             {
