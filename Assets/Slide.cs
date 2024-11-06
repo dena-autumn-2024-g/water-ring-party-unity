@@ -21,13 +21,13 @@ public class SlideInPanel : MonoBehaviour
         panel.DOAnchorPos(firstOffset, duration).SetEase(Ease.OutCubic);
 
         // 1秒後に2回目のアニメーションを実行
-        DOVirtual.DelayedCall(1.0f, () =>
+        DOVirtual.DelayedCall(1.5f, () =>
         {
             panel.DOAnchorPos(secondOffset, duration).SetEase(Ease.OutCubic);
         });
 
         // 2秒後に3回目のアニメーションを実行
-        DOVirtual.DelayedCall(2.0f, () =>
+        DOVirtual.DelayedCall(3.0f, () =>
         {
             panel.DOAnchorPos(finalOffset, duration).SetEase(Ease.OutCubic);
         });

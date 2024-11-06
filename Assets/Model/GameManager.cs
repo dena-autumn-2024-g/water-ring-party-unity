@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float fluidPower = 0.1f;
 
     private GameCycle _gameCycle;
-    private float _limitTime = 70; //秒
+    private float _limitTime = 180; //秒
     private int _addRingCycleFirstTime = 60; //秒
     private int _addRingSecondCycleTime = 45; //秒
 
