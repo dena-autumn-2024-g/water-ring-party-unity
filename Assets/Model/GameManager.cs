@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using System.Threading.Tasks;
+
+public enum GameCycle
+{
+    Normal,
+    AddRingFirst,
+    AddRingSecond,
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +22,6 @@ public class GameManager : MonoBehaviour
     public FluidSimulation fluidSimulation;
 
     public int RingNumPerTeam = 5;
-    public float limitTime = 300;
     
     private Canon[] canons;
     private Player[] players;
@@ -24,9 +31,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text timerText;
 
     [SerializeField] private float fluidPower = 0.1f;
+
+    private GameCycle _gameCycle;
+    private float _limitTime = 70; //秒
+    private int _addRingCycleFirstTime = 60; //秒
+    private int _addRingSecondCycleTime = 45; //秒
+
     // Start is called before the first frame update
     void Start()
     {
+        _gameCycle = GameCycle.Normal;
         score = new Score();
         timer = new Timer();
         timer.StartTimer();
@@ -60,7 +74,7 @@ public class GameManager : MonoBehaviour
             }
         }
         _isRunning = true;
-        StartCoroutine(SpawnRingsCoroutine());
+        _ = SpawnRingsAsync(RingNumPerTeam);
     }
 
     private bool _isRunning = false;
@@ -105,13 +119,33 @@ public class GameManager : MonoBehaviour
         Debug.Log($"スペースキーが離されました。プレイヤーID: {playerId}");
     }
 
+    private void AddRingFirstAction()
+    {
+        _ = SpawnRingsAsync(3);
+    }
+
+    private void AddRingSecondAction()
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (_isRunning)
         {
             float time = getRemainingTime();
-            if (time <= 0)
+            if (_gameCycle == GameCycle.Normal && time <= _addRingCycleFirstTime)
+            {
+                _gameCycle = GameCycle.AddRingFirst;
+                AddRingFirstAction();
+            }
+            else if(_gameCycle == GameCycle.AddRingFirst && time <= _addRingSecondCycleTime)
+            {
+                _gameCycle = GameCycle.AddRingSecond;
+                AddRingSecondAction();
+            }
+            else if (time <= 0)
             {
                 OnGameFinished();
             }
@@ -163,37 +197,39 @@ public class GameManager : MonoBehaviour
     }
 
     public float getRemainingTime() {
-        return limitTime - timer.GetCurrentTime();
+        return _limitTime - timer.GetCurrentTime();
     }
 
 
     void OnTriggerStateChanged(bool isEnter, Collider other)
     {
-        Debug.Log(other.gameObject.name);
-        var ringController = other.GetComponent<ringController>();
-        if (ringController == null) return;
+        var ringController = other.GetComponent<RingTrigger>().RingController;
+        if (ringController == null) {
+            Debug.Log("OnTrigger Null");
+            return;
+        }
 
         int teamId = ringController.TeamId;
         if (isEnter)
         {
             score.AddPoints(1, teamId);
-            Debug.Log(score.ToString());
+            Debug.Log($"Player: {teamId}, +1点, 計 {score.TeamScores[teamId]}点");
         }
         else
         {
             score.AddPoints(-1, teamId);
-            Debug.Log(score.ToString());
+            Debug.Log($"Player: {teamId}, -1点, 計 {score.TeamScores[teamId]}点");
         }
     }
 
-    private IEnumerator SpawnRingsCoroutine()
+    private async Task SpawnRingsAsync(int ringNumPerTeam)
     {
         for (int j = 0; j < CommonInfoManager.NUM_PLAYER; j++)
         {
-            for (int i = 0; i < RingNumPerTeam; i++)
+            for (int i = 0; i < ringNumPerTeam; i++)
             {
                 var prefab = Instantiate(ringPrefab);
-                prefab.GetComponent<ringController>().fluidSimulation = fluidSimulation;
+                prefab.GetComponent<RingController>().fluidSimulation = fluidSimulation;
 
                 // x座標を-22から22までランダムに配置
                 float randomX = Random.Range(-22f, 22f);
@@ -201,13 +237,13 @@ public class GameManager : MonoBehaviour
 
                 // プレハブのマテリアルの色をランダムに設定
                 Renderer renderer = prefab.GetComponent<Renderer>();
-                ringController ringController = prefab.GetComponent<ringController>();
+                RingController ringController = prefab.GetComponent<RingController>();
                 if (ringController != null)
                 {
                     ringController.SetTeamId(j);
                 }
 
-                yield return new WaitForSeconds(0.1f);
+                await Task.Delay(100); // 100ミリ秒待機
             }
         }
     }
