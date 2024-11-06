@@ -22,15 +22,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject iconPrefab;
     [SerializeField] private Transform[] iconParents;
     [SerializeField] private Text timerText;
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text ringSumText;
 
     [SerializeField] private float fluidPower = 0.1f;
     // Start is called before the first frame update
     void Start()
     {
-        _prevRingCount = 0;
-        DecreaseScoreCount(_prevRingCount);
         score = new Score();
         timer = new Timer();
         timer.StartTimer();
@@ -151,44 +147,6 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < canons.Length; i++) {
             fluidSimulation.powers[i] = canons[i].power;
         }
-
-        // スコアを表示 0番プレイヤーのスコア表示テストコード
-        int nowRingCount = score.GetCurrentScore(0) / 10;
-        if (_prevRingCount < nowRingCount)
-        {
-            IncreaseScoreText(nowRingCount);
-        }
-        else if (nowRingCount < _prevRingCount)
-        {
-            DecreaseScoreCount(nowRingCount);
-        }
-        _prevRingCount = nowRingCount;
-    }
-
-    private int _prevRingCount = 0;
-
-    private void DecreaseScoreCount(int count)
-    {
-        scoreText.text = $"{count} ";
-        //ringSumText.text = "/ " + RingNum.ToString();
-    }
-
-    private void IncreaseScoreText(int count)
-    {
-        scoreText.transform.DOComplete();
-        scoreText.transform.DOKill();
-
-        scoreText.text = $"{count} ";
-        //ringSumText.text = "/ " + RingNum.ToString();
-
-        scoreText.transform.localScale = Vector3.one;
-        scoreText.transform.DOScale(1.5f, 0.2f)
-            .SetEase(Ease.OutQuad)
-            .OnComplete(() =>
-            {
-                scoreText.transform.DOScale(1f, 0.2f)
-                    .SetEase(Ease.InQuad);
-            });
     }
 
     public void handleButtonPressed(int playerId, bool isPressed) {
@@ -211,7 +169,11 @@ public class GameManager : MonoBehaviour
 
     void OnTriggerStateChanged(bool isEnter, Collider other)
     {
-        int teamId = other.GetComponent<ringController>().TeamId;
+        Debug.Log(other.gameObject.name);
+        var ringController = other.GetComponent<ringController>();
+        if (ringController == null) return;
+
+        int teamId = ringController.TeamId;
         if (isEnter)
         {
             score.AddPoints(1, teamId);
@@ -235,7 +197,7 @@ public class GameManager : MonoBehaviour
 
                 // x座標を-22から22までランダムに配置
                 float randomX = Random.Range(-22f, 22f);
-                prefab.transform.position = new Vector3(randomX, prefab.transform.position.y, prefab.transform.position.z);
+                prefab.transform.position = new Vector3(randomX, -4, prefab.transform.position.z);
 
                 // プレハブのマテリアルの色をランダムに設定
                 Renderer renderer = prefab.GetComponent<Renderer>();
