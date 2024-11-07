@@ -5,7 +5,7 @@ using System.Collections.Generic;
 class Canon {
     public Vector3 Power = Vector3.zero;
     public int id;
-    private float MaxPower = 0.075f;
+    private float MaxPower = 0.055f;
 
     private List<Tweener> _tweenersForPlayer;
     private List<Vector3> _addedPowersForPlayer;
