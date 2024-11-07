@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource addRingAudioSource;
     [SerializeField] private AudioSource finishAudioSource;
 
-    [SerializeField] private float fluidPower = 0.1f;
+    [SerializeField] private float fluidPower = 10.0f;
 
     private GameCycle _gameCycle;
     private float _limitTime = 180; //秒
@@ -115,8 +115,8 @@ public class GameManager : MonoBehaviour
 
     public void PushButtonPressed(int playerId)
     {
-            handleButtonPressed(playerId, true);
-            Debug.Log($"スペースキーが押されました。プレイヤーID: {playerId}");
+        handleButtonPressed(playerId, true);
+        Debug.Log($"スペースキーが押されました。プレイヤーID: {playerId}");
     }
 
     public void PushButtonReleased(int playerId)
@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
         for (int i = 0; i < canons.Length; i++) {
-            fluidSimulation.powers[i] = canons[i].power;
+            fluidSimulation.powers[i] = canons[i].Power;
         }
     }
 
@@ -208,9 +208,11 @@ public class GameManager : MonoBehaviour
         players[playerId].setTurretState(isPressed);
         var canonId = players[playerId].GetCurrentTurretNumber();
         if (isPressed) {
-            canons[canonId].addPower(Vector3.up * fluidPower);
-        } else {
-            canons[canonId].addPower(-Vector3.up * fluidPower);
+            canons[canonId].AddPower(Vector3.up * fluidPower, playerId);
+        }
+        else
+        {
+            canons[canonId].CancelPower(playerId);
         }
     }
 
