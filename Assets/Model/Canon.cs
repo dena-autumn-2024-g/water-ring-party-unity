@@ -65,6 +65,7 @@ class Canon {
             _tweenersForPlayer[playerId].Kill();
             AddDiffPower(-_addedPowersForPlayer[playerId]);
             _addedPowersForPlayer[playerId] = Vector3.zero;
+            _tweenersForPlayer[playerId] = null;
         }
     }
 }
